@@ -202,19 +202,19 @@ public class BallMove : MonoBehaviour
                             if (ball.ispickable == false)
                             {
                                 ball.ispickable = true;
-                                ball.transform.DOMoveY(ball.transform.localPosition.y - GameManager.gm.ScrewPosVal, .5f);
+                                ball.transform.DOMoveY(ball.transform.position.y - GameManager.gm.ScrewPosVal, .2f).SetEase(Ease.InOutBounce);
                             }
 
                         }
                         hit.collider.gameObject.GetComponent<Ball>().ispickable = false;
                         SelectedScrew = hit.collider.gameObject;
-                        SelectedScrew.transform.DOMoveY(SelectedScrew.transform.localPosition.y + GameManager.gm.ScrewPosVal, .5f);
+                        SelectedScrew.transform.DOMoveY(SelectedScrew.transform.position.y + GameManager.gm.ScrewPosVal, .2f).SetEase(Ease.InOutBounce);
 
                     }
                     else
                     {
                         hit.collider.gameObject.GetComponent<Ball>().ispickable = true;
-                        hit.collider.gameObject.transform.DOMoveY(hit.collider.gameObject.transform.localPosition.y - GameManager.gm.ScrewPosVal, .5f);
+                        hit.collider.gameObject.transform.DOMoveY(hit.collider.gameObject.transform.position.y - GameManager.gm.ScrewPosVal, .2f).SetEase(Ease.InOutBounce);
 
                     }
 
@@ -261,7 +261,7 @@ public class BallMove : MonoBehaviour
                         SelectedScrew.transform.DOJump(hit.collider.gameObject.transform.GetChild(0).transform.position, 3, 1, .5f);
                         Invoke(nameof(CallActionComplete), .6f);
 
-                        SelectedScrew.transform.DOMoveY(SelectedScrew.transform.position.y - GameManager.gm.ScrewPosVal, .5f).SetDelay(.6f);
+                        SelectedScrew.transform.DOMoveY(SelectedScrew.transform.position.y - GameManager.gm.ScrewPosVal, .2f).SetEase(Ease.InOutBounce).SetDelay(.6f);
                         SelectedScrew.GetComponent<Ball>().ispickable = true;
                         SelectedScrew = null; // Deselect the object
                         if (levelManager.WrongsBalls == 0)
@@ -277,7 +277,7 @@ public class BallMove : MonoBehaviour
                     }
                     else
                     {
-                        SelectedScrew.transform.DOMoveY(SelectedScrew.transform.position.y - GameManager.gm.ScrewPosVal, .5f);
+                        SelectedScrew.transform.DOMoveY(SelectedScrew.transform.position.y - GameManager.gm.ScrewPosVal, .2f).SetEase(Ease.InOutBounce);
                         SelectedScrew.GetComponent<Ball>().ispickable = true;
                         SelectedScrew = null;
                     }

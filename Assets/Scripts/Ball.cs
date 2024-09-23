@@ -8,7 +8,7 @@ public class Ball : MonoBehaviour
     public BallPlaced ballplacedobj;
     public bool ispickable;
     public NutsColor nutscolor;
-    public float raycastDistance = .00001f;
+    public float raycastDistance = 10f;
     public LayerMask layerMask; // Optional: to limit which layers the rays can hit
 
     // Define directions in which rays will be cast
@@ -23,6 +23,8 @@ public class Ball : MonoBehaviour
     private void Start()
     {
         gameObject.name = nutscolor.ToString();
+        ispickable = true;
+       
         foreach (Vector3 dir in directions)
         {
             // Cast the ray from the object's position in the specified direction
