@@ -192,11 +192,19 @@ public class BallMove : MonoBehaviour
                     {
                         foreach (Ball ball in DoubleTapScrew)
                         {
-                            if (ball.ispickable == false && ((int)ball.nutscolor != (int)ball.ballplacedobj.nutsplacedcolor))
+                            //if (ball.ispickable == false && ((int)ball.nutscolor != (int)ball.ballplacedobj.nutsplacedcolor))
+                            //{
+                            //    ball.ispickable = true;
+                            //    ball.transform.DOMoveY(ball.transform.localPosition.y - GameManager.gm.ScrewPosVal, .5f);
+                            //}
+
+
+                            if (ball.ispickable == false)
                             {
                                 ball.ispickable = true;
                                 ball.transform.DOMoveY(ball.transform.localPosition.y - GameManager.gm.ScrewPosVal, .5f);
                             }
+
                         }
                         hit.collider.gameObject.GetComponent<Ball>().ispickable = false;
                         SelectedScrew = hit.collider.gameObject;
