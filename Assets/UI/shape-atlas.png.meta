@@ -6,7 +6,7 @@ TextureImporter:
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -37,13 +37,13 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
+    wrapU: 1
+    wrapV: 1
     wrapW: 0
-  nPOTScale: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -52,9 +52,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -110,29 +110,215 @@ TextureImporter:
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 50
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 0
+    overridden: 1
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: shape-atlas_0
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 1723
+        width: 317
+        height: 279
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 791a21cba3c253b41bd8ec97ea1b5dbe
+      internalID: 1282818130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shape-atlas_1
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 1602
+        width: 303
+        height: 399
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae9b0dd0319b8a64186858f37d7f341a
+      internalID: 2072984027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shape-atlas_2
+      rect:
+        serializedVersion: 2
+        x: 735
+        y: 1778
+        width: 302
+        height: 168
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bf4b3fdd1cec6e48a72194ae2834688
+      internalID: -1312800057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shape-atlas_3
+      rect:
+        serializedVersion: 2
+        x: 1122
+        y: 1685
+        width: 294
+        height: 355
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62834dce5dec4a540adb65b21f7f131f
+      internalID: -2087666654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shape-atlas_4
+      rect:
+        serializedVersion: 2
+        x: 1455
+        y: 1778
+        width: 313
+        height: 162
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46ea55104d315774ab04e13be4a441e8
+      internalID: 82775676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shape-atlas_5
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 1344
+        width: 320
+        height: 265
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5457459b009b09344972f6bbe2b6233b
+      internalID: 946212075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shape-atlas_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1200
+        width: 363
+        height: 361
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f96b1ba1b06b2c46b2e6a99f2e0e3e2
+      internalID: 271131287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shape-atlas_7
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 1431
+        width: 303
+        height: 241
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ecbe0e61342db2409c043572156302c
+      internalID: 1709138625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: bc0d7dd1359515f4cb796ce29e67d3cf
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      shape-atlas_0: 1282818130
+      shape-atlas_1: 2072984027
+      shape-atlas_10: -1407659544
+      shape-atlas_11: 684936235
+      shape-atlas_12: -472293403
+      shape-atlas_13: 478386660
+      shape-atlas_14: 36900014
+      shape-atlas_15: 711377088
+      shape-atlas_16: -1796362433
+      shape-atlas_17: 1287836228
+      shape-atlas_2: -1312800057
+      shape-atlas_3: -2087666654
+      shape-atlas_4: 82775676
+      shape-atlas_5: 946212075
+      shape-atlas_6: 271131287
+      shape-atlas_7: 1709138625
+      shape-atlas_8: 1054952008
+      shape-atlas_9: -1252671887
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

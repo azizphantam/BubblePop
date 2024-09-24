@@ -5,6 +5,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 using MoreMountains.NiceVibrations;
 using System.Collections;
+using Unity.Burst.CompilerServices;
 
 public class BallMove : MonoBehaviour
 {
@@ -34,7 +35,9 @@ public class BallMove : MonoBehaviour
     public bool ispopup = false;
     public int numberofscrews;
     float Y_Axis;
-
+    public Ball FinalScrew;
+    public AudioClip[] select_deselect;
+    public AudioSource PopUp;
     #region UndoFuntionality
     [Header("Undo Screws")]
     [Space]
@@ -66,6 +69,7 @@ public class BallMove : MonoBehaviour
         }
         levelManager.WrongsBalls = WrongScrews.Count;
         levelManager.wrongballs.text = levelManager.WrongsBalls.ToString();
+        
         #endregion
     }
     public void SwapNuts()
@@ -112,6 +116,8 @@ public class BallMove : MonoBehaviour
                     if (hit.collider.gameObject.CompareTag("Player"))
                     {
                         Destroy(hit.collider.gameObject);
+                        PopUp.clip = select_deselect[0];
+                        PopUp.Play();
                         MMVibrationManager.Haptic(HapticTypes.SoftImpact, false, true, this);
                         numberofscrews--;
 
@@ -159,13 +165,15 @@ public class BallMove : MonoBehaviour
                         hit.collider.gameObject.GetComponent<Ball>().ispickable = false;
                         SelectedScrew = hit.collider.gameObject;
                         SelectedScrew.transform.DOMoveY(SelectedScrew.transform.position.y + Y_Axis, .2f).SetEase(Ease.InOutBounce);
-
+                        PopUp.clip = select_deselect[0];
+                        PopUp.Play();
                     }
                     else
                     {
                         hit.collider.gameObject.GetComponent<Ball>().ispickable = true;
                         hit.collider.gameObject.transform.DOMoveY(hit.collider.gameObject.transform.position.y - Y_Axis, .2f).SetEase(Ease.InOutBounce);
-
+                        PopUp.clip = select_deselect[1];
+                        PopUp.Play();
                     }
 
                 }
@@ -190,7 +198,8 @@ public class BallMove : MonoBehaviour
                 if (hit.collider.gameObject.GetComponent<BallPlaced>().isEmptySpace == true)
                 {
 
-
+                    PopUp.clip = select_deselect[1];
+                    PopUp.Play();
 
                     if ((int)SelectedScrew.GetComponent<Ball>().nutscolor == (int)hit.collider.gameObject.GetComponent<BallPlaced>().nutsplacedcolor)
                     {
@@ -208,10 +217,10 @@ public class BallMove : MonoBehaviour
                         SelectedScrew.GetComponent<Ball>().ballplacedobj = hit.collider.gameObject.GetComponent<BallPlaced>();
                         SelectedScrew.GetComponent<Ball>().ballplacedobj.isEmptySpace = false;
                         hit.collider.gameObject.GetComponent<BallPlaced>().Nut = SelectedScrew.GetComponent<Ball>();
-                        SelectedScrew.transform.DOJump(hit.collider.gameObject.transform.GetChild(0).transform.position, 3, 1, .5f);
+                        SelectedScrew.transform.DOJump(hit.collider.gameObject.transform.GetChild(0).transform.position, .5f, 1, .5f);
                         Invoke(nameof(CallActionComplete), .6f);
 
-                        SelectedScrew.transform.DOMoveY(SelectedScrew.transform.position.y - Y_Axis, .2f).SetEase(Ease.InOutBounce).SetDelay(.6f);
+                        SelectedScrew.transform.DOMoveY(SelectedScrew.transform.position.y - Y_Axis, .2f).SetDelay(.4f);
                         SelectedScrew.GetComponent<Ball>().ispickable = true;
                         SelectedScrew = null; // Deselect the object
                         if (levelManager.WrongsBalls == 0)
@@ -247,6 +256,20 @@ public class BallMove : MonoBehaviour
     {
         ispopup = true;
         WinningMeshObj.SetActive(true);
+        for (int i = 0; i < ScrewHolesList.Count; i++)
+        {
+           
+           
+            if (ScrewHolesList[i].isEmptySpace == true)
+            {
+                Debug.Log("Available placed ");
+
+                FinalScrew.gameObject.transform.DOJump(ScrewHolesList[i].gameObject.transform.GetChild(0).transform.position,.5f, 1, .5f);
+                FinalScrew.gameObject.transform.DOMoveY(FinalScrew.gameObject.transform.position.y + 0.1f , .4f).SetDelay(.4f);
+                numberofscrews = numberofscrews + 1;
+            }
+        }
+       
     }
     public void CallActionComplete()
     {

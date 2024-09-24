@@ -22,7 +22,7 @@ public class Ball : MonoBehaviour
     };
     private void Start()
     {
-        gameObject.name = nutscolor.ToString();
+       // gameObject.name = nutscolor.ToString();
         ispickable = true;
        
         foreach (Vector3 dir in directions)
