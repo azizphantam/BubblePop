@@ -25,13 +25,15 @@ public class BallMove : MonoBehaviour
     public List<Ball> HintScrew_List = new List<Ball>();
     public List<BallPlaced> ScrewHolesList = new List<BallPlaced>();
 
-    public BallPlaced ScrewSwapPlacing_hint;
+    
+
+
     #endregion
 
     public List<Ball> DoubleTapScrew = new List<Ball>();
     public bool ispopup = false;
     public int numberofscrews;
-
+    float Y_Axis;
 
     #region UndoFuntionality
     [Header("Undo Screws")]
@@ -45,7 +47,7 @@ public class BallMove : MonoBehaviour
     {
         mainCamera = Camera.main;
         numberofscrews = DoubleTapScrew.Count;
-
+        Y_Axis = GameManager.gm.ScrewPosVal;
 
         Invoke(nameof(CallWrongScrewAction), .2f);
 
@@ -68,19 +70,13 @@ public class BallMove : MonoBehaviour
     }
     public void SwapNuts()
     {
+        HintScrew_List.Clear();
+        ScrewHolesList.Clear();
         for (int i = 0; i < WrongScrews.Count; i++)
         {
-
-            if ((int)WrongScrews[i].GetComponent<Ball>().nutscolor != (int)WrongScrews[i].GetComponent<Ball>().ballplacedobj.GetComponent<BallPlaced>().nutsplacedcolor)
-            {
-                HintScrew_List.Add(WrongScrews[i].GetComponent<Ball>());
-                if (ScrewHolesList[i].isEmptySpace == true)
-                    ScrewSwapPlacing_hint = ScrewHolesList[i];
-
-            }
-
+            HintScrew_List.Add(WrongScrews[i].GetComponent<Ball>());
+            ScrewHolesList.Add(WrongScrews[i].GetComponent<Ball>().ballplacedobj);
         }
-        
 
     }
     void Update()
@@ -145,66 +141,30 @@ public class BallMove : MonoBehaviour
                 if (ispopup == false)
 
                 {
-                    #region Tap Failed on same screw color placed
-                    //if ((int)hit.collider.gameObject.GetComponent<Ball>().nutscolor != (int)hit.collider.gameObject.GetComponent<Ball>().ballplacedobj.nutsplacedcolor)
-                    //{
-                    //    MMVibrationManager.Haptic(HapticTypes.SoftImpact, false, true, this);
-                    //    if (hit.collider.gameObject.GetComponent<Ball>().ispickable == true)
-                    //    {
-                    //        foreach (Ball ball in DoubleTapScrew)
-                    //        {
-                    //            if (ball.ispickable == false && ((int)ball.nutscolor != (int)ball.ballplacedobj.nutsplacedcolor))
-                    //            {
-                    //                ball.ispickable = true;
-                    //                ball.transform.DOLocalMoveY(ball.transform.localPosition.y - ScrewPosValf, .5f);
-                    //            }
-                    //        }
-                    //        hit.collider.gameObject.GetComponent<Ball>().ispickable = false;
-                    //        SelectedScrew = hit.collider.gameObject;
-                    //        SelectedScrew.transform.DOLocalMoveY(SelectedScrew.transform.localPosition.y + ScrewPosValf, .5f);
-
-                    //    }
-                    //    else
-                    //    {
-                    //        hit.collider.gameObject.GetComponent<Ball>().ispickable = true;
-                    //        hit.collider.gameObject.transform.DOLocalMoveY(hit.collider.gameObject.transform.localPosition.y - ScrewPosValf, .5f);
-
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    MMVibrationManager.Haptic(HapticTypes.Failure, false, true, this);
-                    //} 
-                    #endregion
+                  
 
 
                     if (hit.collider.gameObject.GetComponent<Ball>().ispickable == true)
                     {
                         foreach (Ball ball in DoubleTapScrew)
                         {
-                            //if (ball.ispickable == false && ((int)ball.nutscolor != (int)ball.ballplacedobj.nutsplacedcolor))
-                            //{
-                            //    ball.ispickable = true;
-                            //    ball.transform.DOMoveY(ball.transform.localPosition.y - GameManager.gm.ScrewPosVal, .5f);
-                            //}
-
-
+                            
                             if (ball.ispickable == false)
                             {
                                 ball.ispickable = true;
-                                ball.transform.DOMoveY(ball.transform.position.y - GameManager.gm.ScrewPosVal, .2f).SetEase(Ease.InOutBounce);
+                                ball.transform.DOMoveY(ball.transform.position.y - Y_Axis, .2f).SetEase(Ease.InOutBounce);
                             }
 
                         }
                         hit.collider.gameObject.GetComponent<Ball>().ispickable = false;
                         SelectedScrew = hit.collider.gameObject;
-                        SelectedScrew.transform.DOMoveY(SelectedScrew.transform.position.y + GameManager.gm.ScrewPosVal, .2f).SetEase(Ease.InOutBounce);
+                        SelectedScrew.transform.DOMoveY(SelectedScrew.transform.position.y + Y_Axis, .2f).SetEase(Ease.InOutBounce);
 
                     }
                     else
                     {
                         hit.collider.gameObject.GetComponent<Ball>().ispickable = true;
-                        hit.collider.gameObject.transform.DOMoveY(hit.collider.gameObject.transform.position.y - GameManager.gm.ScrewPosVal, .2f).SetEase(Ease.InOutBounce);
+                        hit.collider.gameObject.transform.DOMoveY(hit.collider.gameObject.transform.position.y - Y_Axis, .2f).SetEase(Ease.InOutBounce);
 
                     }
 
@@ -251,7 +211,7 @@ public class BallMove : MonoBehaviour
                         SelectedScrew.transform.DOJump(hit.collider.gameObject.transform.GetChild(0).transform.position, 3, 1, .5f);
                         Invoke(nameof(CallActionComplete), .6f);
 
-                        SelectedScrew.transform.DOMoveY(SelectedScrew.transform.position.y - GameManager.gm.ScrewPosVal, .2f).SetEase(Ease.InOutBounce).SetDelay(.6f);
+                        SelectedScrew.transform.DOMoveY(SelectedScrew.transform.position.y - Y_Axis, .2f).SetEase(Ease.InOutBounce).SetDelay(.6f);
                         SelectedScrew.GetComponent<Ball>().ispickable = true;
                         SelectedScrew = null; // Deselect the object
                         if (levelManager.WrongsBalls == 0)
@@ -267,7 +227,7 @@ public class BallMove : MonoBehaviour
                     }
                     else
                     {
-                        SelectedScrew.transform.DOMoveY(SelectedScrew.transform.position.y - GameManager.gm.ScrewPosVal, .2f).SetEase(Ease.InOutBounce);
+                        SelectedScrew.transform.DOMoveY(SelectedScrew.transform.position.y - Y_Axis, .2f).SetEase(Ease.InOutBounce);
                         SelectedScrew.GetComponent<Ball>().ispickable = true;
                         SelectedScrew = null;
                     }
