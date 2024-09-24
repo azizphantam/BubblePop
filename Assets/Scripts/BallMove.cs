@@ -19,11 +19,13 @@ public class BallMove : MonoBehaviour
     [Header("Swapping Screws")]
     [Space]
     public List<GameObject> Screws = new List<GameObject>();
-    public List<GameObject> ScrewPlacing = new List<GameObject>();
+  
     public List<GameObject> WrongScrews = new List<GameObject>();
 
     public List<Ball> HintScrew_List = new List<Ball>();
-    public List<BallPlaced> ScrewSwapPlacing_List = new List<BallPlaced>();
+    public List<BallPlaced> ScrewHolesList = new List<BallPlaced>();
+
+    public BallPlaced ScrewSwapPlacing_hint;
     #endregion
 
     public List<Ball> DoubleTapScrew = new List<Ball>();
@@ -72,25 +74,13 @@ public class BallMove : MonoBehaviour
             if ((int)WrongScrews[i].GetComponent<Ball>().nutscolor != (int)WrongScrews[i].GetComponent<Ball>().ballplacedobj.GetComponent<BallPlaced>().nutsplacedcolor)
             {
                 HintScrew_List.Add(WrongScrews[i].GetComponent<Ball>());
-                ScrewSwapPlacing_List.Add(WrongScrews[i].GetComponent<Ball>().ballplacedobj);
+                if (ScrewHolesList[i].isEmptySpace == true)
+                    ScrewSwapPlacing_hint = ScrewHolesList[i];
 
             }
 
         }
-        for (int i = 0; i < ScrewSwapPlacing_List.Count; i++)
-        {
-            if ((int)HintScrew_List[0].GetComponent<Ball>().nutscolor == (int)WrongScrews[i].GetComponent<Ball>().ballplacedobj.GetComponent<BallPlaced>().nutsplacedcolor)
-            {
-                HintScrew_List[0].GetComponent<Ball>().ballplacedobj.isEmptySpace = true;
-                HintScrew_List[0].GetComponent<Ball>().ballplacedobj = WrongScrews[i].GetComponent<Ball>().ballplacedobj.GetComponent<BallPlaced>();
-                HintScrew_List[0].GetComponent<Ball>().ballplacedobj.isEmptySpace = false;
-                WrongScrews[i].GetComponent<Ball>().ballplacedobj.GetComponent<BallPlaced>().gameObject.GetComponent<BallPlaced>().Nut = SelectedScrew.GetComponent<Ball>();
-                HintScrew_List[0].GetComponent<Ball>().transform.DOJump(WrongScrews[i].GetComponent<Ball>().ballplacedobj.GetComponent<BallPlaced>().transform.GetChild(0).transform.position, 3, 1, 1);
-                ScrewSwapPlacing_List.Remove(WrongScrews[i].GetComponent<Ball>().ballplacedobj.GetComponent<BallPlaced>());
-                // Invoke(nameof(CallActionComplete), 1.1f);
-            }
-
-        }
+        
 
     }
     void Update()
