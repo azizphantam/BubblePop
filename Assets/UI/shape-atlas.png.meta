@@ -274,9 +274,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 786
-        y: 1431
+        y: 1424
         width: 303
-        height: 241
+        height: 248
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -286,6 +286,153 @@ TextureImporter:
       bones: []
       spriteID: 2ecbe0e61342db2409c043572156302c
       internalID: 1709138625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shape-atlas_8
+      rect:
+        serializedVersion: 2
+        x: 1182
+        y: 1412
+        width: 275
+        height: 261
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9485d4612ef1b1f47be2c90152a03cc7
+      internalID: 1054952008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shape-atlas_9
+      rect:
+        serializedVersion: 2
+        x: 1487
+        y: 1342
+        width: 249
+        height: 352
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a15d2799833ad94c961b653612dbb12
+      internalID: -1252671887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shape-atlas_10
+      rect:
+        serializedVersion: 2
+        x: 1766
+        y: 1412
+        width: 271
+        height: 211
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5905c63407ec5e042a77dd936391a136
+      internalID: -1407659544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shape-atlas_11
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 884
+        width: 322
+        height: 360
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24a618f067508a446bd9985988177192
+      internalID: 684936235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shape-atlas_12
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 794
+        width: 200
+        height: 336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a18b82379b5891448b203b63a5ba49e
+      internalID: -472293403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shape-atlas_13
+      rect:
+        serializedVersion: 2
+        x: 782
+        y: 808
+        width: 321
+        height: 308
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a70cdbccb65770f44a5fdd54e324caa6
+      internalID: 478386660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shape-atlas_14
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 1159
+        width: 284
+        height: 227
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ded90c8c1467e4c48921156ec4da7ff3
+      internalID: 36900014
       vertices: []
       indices: 
       edges: []

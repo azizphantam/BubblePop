@@ -131,7 +131,7 @@ TextureImporter:
         width: 971
         height: 1730
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -147,12 +147,12 @@ TextureImporter:
       name: atlas-3_1
       rect:
         serializedVersion: 2
-        x: 1040
+        x: 1046
         y: 201
-        width: 971
+        width: 965
         height: 1730
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

@@ -52,8 +52,9 @@ public class Ball : MonoBehaviour
     {
         
     }
-
+   
 }
+
 public enum NutsColor
 {
     Brown,

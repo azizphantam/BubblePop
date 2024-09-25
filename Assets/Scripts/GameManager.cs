@@ -38,6 +38,6 @@ public class GameManager : MonoBehaviour
     }
     public void replaylevel()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(2);
     }
 }

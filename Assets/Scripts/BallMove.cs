@@ -38,6 +38,8 @@ public class BallMove : MonoBehaviour
     public Ball FinalScrew;
     public AudioClip[] select_deselect;
     public AudioSource PopUp;
+    public List<ParticleSystem> DragScrewPArticles;
+    List<ParticleSystem> instanlist;
     #region UndoFuntionality
     [Header("Undo Screws")]
     [Space]
@@ -115,7 +117,16 @@ public class BallMove : MonoBehaviour
                     // Check if the raycast hits this object
                     if (hit.collider.gameObject.CompareTag("Player"))
                     {
-                        Destroy(hit.collider.gameObject);
+                        
+                        hit.collider.GetComponent<SphereCollider>().enabled = false;
+                        foreach (var item in DragScrewPArticles)
+                        {
+                            ParticleSystem a = Instantiate(item,hit.collider.transform.position,Quaternion.identity);
+                            a.transform.position = new Vector3(a.transform.position.x, a.transform.rotation.y+.8f, a.transform.position.z);
+                            a.Play();
+                        }
+
+                        Destroy(hit.collider.gameObject,.1f);
                         PopUp.clip = select_deselect[0];
                         PopUp.Play();
                         MMVibrationManager.Haptic(HapticTypes.SoftImpact, false, true, this);
@@ -158,22 +169,23 @@ public class BallMove : MonoBehaviour
                             if (ball.ispickable == false)
                             {
                                 ball.ispickable = true;
-                                ball.transform.DOMoveY(ball.transform.position.y - Y_Axis, .2f).SetEase(Ease.InOutBounce);
+                                ball.transform.DOMoveY(ball.transform.position.y - Y_Axis, .1f);
                             }
 
                         }
                         hit.collider.gameObject.GetComponent<Ball>().ispickable = false;
                         SelectedScrew = hit.collider.gameObject;
-                        SelectedScrew.transform.DOMoveY(SelectedScrew.transform.position.y + Y_Axis, .2f).SetEase(Ease.InOutBounce);
+                        SelectedScrew.transform.DOMoveY(SelectedScrew.transform.position.y + Y_Axis, .1f);
                         PopUp.clip = select_deselect[0];
                         PopUp.Play();
                     }
                     else
                     {
                         hit.collider.gameObject.GetComponent<Ball>().ispickable = true;
-                        hit.collider.gameObject.transform.DOMoveY(hit.collider.gameObject.transform.position.y - Y_Axis, .2f).SetEase(Ease.InOutBounce);
+                        hit.collider.gameObject.transform.DOMoveY(hit.collider.gameObject.transform.position.y - Y_Axis, .1f);
                         PopUp.clip = select_deselect[1];
                         PopUp.Play();
+                        
                     }
 
                 }
@@ -200,7 +212,7 @@ public class BallMove : MonoBehaviour
 
                     PopUp.clip = select_deselect[1];
                     PopUp.Play();
-
+                   
                     if ((int)SelectedScrew.GetComponent<Ball>().nutscolor == (int)hit.collider.gameObject.GetComponent<BallPlaced>().nutsplacedcolor)
                     {
                        
@@ -219,7 +231,7 @@ public class BallMove : MonoBehaviour
                         hit.collider.gameObject.GetComponent<BallPlaced>().Nut = SelectedScrew.GetComponent<Ball>();
                         SelectedScrew.transform.DOJump(hit.collider.gameObject.transform.GetChild(0).transform.position, .5f, 1, .5f);
                         Invoke(nameof(CallActionComplete), .6f);
-
+                        hit.collider.gameObject.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
                         SelectedScrew.transform.DOMoveY(SelectedScrew.transform.position.y - Y_Axis, .2f).SetDelay(.4f);
                         SelectedScrew.GetComponent<Ball>().ispickable = true;
                         SelectedScrew = null; // Deselect the object
@@ -245,6 +257,7 @@ public class BallMove : MonoBehaviour
                 {
 
                     SelectedScrew = null;
+
                     MMVibrationManager.Haptic(HapticTypes.Failure, false, true, this);
 
                 }
@@ -265,7 +278,7 @@ public class BallMove : MonoBehaviour
                 Debug.Log("Available placed ");
 
                 FinalScrew.gameObject.transform.DOJump(ScrewHolesList[i].gameObject.transform.GetChild(0).transform.position,.5f, 1, .5f);
-                FinalScrew.gameObject.transform.DOMoveY(FinalScrew.gameObject.transform.position.y + 0.1f , .4f).SetDelay(.4f);
+                FinalScrew.gameObject.transform.DOMoveY(FinalScrew.gameObject.transform.position.y + 0.05f , .4f).SetDelay(.4f);
                 numberofscrews = numberofscrews + 1;
             }
         }
@@ -273,10 +286,11 @@ public class BallMove : MonoBehaviour
     }
     public void CallActionComplete()
     {
-
+       
         MMVibrationManager.Haptic(HapticTypes.Success, false, true, this);
+        
     }
-
+   
 
 
     public void Undo()
