@@ -40,6 +40,7 @@ public class BallMove : MonoBehaviour
     public AudioSource PopUp;
     public List<ParticleSystem> DragScrewPArticles;
     List<ParticleSystem> instanlist;
+    public float Time;
     #region UndoFuntionality
     [Header("Undo Screws")]
     [Space]
