@@ -9,8 +9,13 @@ public class Splash : MonoBehaviour
     public Image loadingimage;
     private void Start()
     {
-        loadingimage.transform.DOScale(1, 1.5f);
-        Invoke(nameof(loadScene),1.4f);
+        if (PlayerPrefs.GetInt("FirstTime") == 0)
+        {
+            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 30);
+            PlayerPrefs.SetInt("FirstTime", 1);
+        }
+        loadingimage.transform.DOScale(1, 1.8f);
+        Invoke(nameof(loadScene),1.7f);
     }
     public void loadScene()
     {

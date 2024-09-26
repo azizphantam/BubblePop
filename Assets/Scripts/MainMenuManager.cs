@@ -16,6 +16,7 @@ public class MainMenuManager : MonoBehaviour
     }
     public void loadScene()
     {
+        LoadingPanel.transform.GetChild(0).DOMoveX(1288, 0.5f);
         SceneManager.LoadScene(2);
     }
 }

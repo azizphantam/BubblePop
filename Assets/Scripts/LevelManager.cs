@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     public int WrongsBalls;
     public GameObject WonPAnel;
     public Text wrongballs;
+    public GameObject LoadingPanel;
     private void Start()
     {
         wrongballs.text = "0 "+WrongsBalls.ToString();
@@ -18,13 +19,22 @@ public class LevelManager : MonoBehaviour
             levelManagerInstance = this;
         }
     }
-    public void Replay()
+    public void Home()
     {
-        SceneManager.LoadScene(0);
+        LoadingPanel.SetActive(true);
+        Invoke(nameof(SceneLoading),1.4f);
+      
+    }
+    public void SceneLoading()
+    {
+      
+        SceneManager.LoadScene(1);
     }
     public void WonLevel()
     {
         WonPAnel.SetActive(true);
+        SoundsManager.instance.PlayLevelWinSound(SoundsManager.instance.AS);
+        GameManager.gm.IncreaseCoins(35);
         PlayerPrefs.SetInt("CurrentLevel", PlayerPrefs.GetInt("CurrentLevel") + 1);
     }
     public void DecrementWrong()
@@ -32,4 +42,5 @@ public class LevelManager : MonoBehaviour
        
         wrongballs.text = "0 " + WrongsBalls.ToString();
     }
+   
 }
