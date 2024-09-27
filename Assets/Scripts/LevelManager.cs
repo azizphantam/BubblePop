@@ -32,6 +32,7 @@ public class LevelManager : MonoBehaviour
     }
     public void WonLevel()
     {
+        GameManager.gm.IsTimerRunning = false;
         WonPAnel.SetActive(true);
         SoundsManager.instance.PlayLevelWinSound(SoundsManager.instance.AS);
         GameManager.gm.IncreaseCoins(35);

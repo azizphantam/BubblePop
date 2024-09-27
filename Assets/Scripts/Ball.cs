@@ -65,6 +65,7 @@ public enum NutsColor
     White,
     Green,
     Yellow,
-    Orange
+    Orange,
+    pink
 }
 

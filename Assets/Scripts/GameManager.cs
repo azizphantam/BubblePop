@@ -23,6 +23,10 @@ public class GameManager : MonoBehaviour
     public GameObject FailedPanel;
     public Text Coins;
     public Text levelnumber;
+
+    public Image CurrentLvlImgbg;
+    public Image CurrentLvlImg;
+    public float progressionamount;
     private void Awake()
     {
         if (gm == null)
@@ -41,6 +45,10 @@ public class GameManager : MonoBehaviour
         
 
     }
+    public void IncreaseProgression()
+    {
+        CurrentLvlImg.fillAmount = CurrentLvlImg.fillAmount+ progressionamount;
+    }
     public void LoadNextLevel()
     {
         foreach (GameObject level in Levels)
@@ -57,6 +65,8 @@ public class GameManager : MonoBehaviour
             Levels[PlayerPrefs.GetInt("CurrentLevel")].SetActive(true);
         }
         totalTimeInSeconds = Levels[PlayerPrefs.GetInt("CurrentLevel")].GetComponent<BallMove>().Time;
+        CurrentLvlImgbg.sprite = Levels[PlayerPrefs.GetInt("CurrentLevel")].GetComponent<BallMove>().lvlbg; 
+        CurrentLvlImg.sprite = Levels[PlayerPrefs.GetInt("CurrentLevel")].GetComponent<BallMove>().lvlimg;
     }
     public void ReplayLevel()
     {

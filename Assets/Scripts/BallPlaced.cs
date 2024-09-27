@@ -21,5 +21,6 @@ public enum NutsPlaceColor
     White,
     Green,
     Yellow,
-    Orange
+    Orange,
+    pink
 }

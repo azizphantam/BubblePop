@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using MoreMountains.NiceVibrations;
 using System.Collections;
 using Unity.Burst.CompilerServices;
+using UnityEngine.UI;
 
 public class BallMove : MonoBehaviour
 {
@@ -41,6 +42,9 @@ public class BallMove : MonoBehaviour
     public List<ParticleSystem> DragScrewPArticles;
     List<ParticleSystem> instanlist;
     public float Time;
+    public Sprite lvlbg;
+    public Sprite lvlimg;
+   
     #region UndoFuntionality
     [Header("Undo Screws")]
     [Space]
@@ -72,7 +76,8 @@ public class BallMove : MonoBehaviour
         }
         levelManager.WrongsBalls = WrongScrews.Count;
         levelManager.wrongballs.text = levelManager.WrongsBalls.ToString();
-        
+        GameManager.gm.progressionamount =  1 / (float) levelManager.WrongsBalls;
+       
         #endregion
     }
     public void SwapNuts()
@@ -222,8 +227,10 @@ public class BallMove : MonoBehaviour
                         if ((int)SelectedScrew.GetComponent<Ball>().ballplacedobj.nutsplacedcolor != (int)SelectedScrew.GetComponent<Ball>().nutscolor)
                         {
                             levelManager.WrongsBalls--;
+                            GameManager.gm.IncreaseProgression();
                             levelManager.wrongballs.text = levelManager.WrongsBalls.ToString();
                             WrongScrews.Remove(SelectedScrew);
+                           
                         }//for decrease value only if ball placed from wrong color to right color
 
                         SelectedScrew.GetComponent<Ball>().ballplacedobj.isEmptySpace = true;
