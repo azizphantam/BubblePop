@@ -377,7 +377,7 @@ public class BallMove : MonoBehaviour
                 {
                     foreach (var t in MovesScrewlist)
                     {
-                        if(t.isEmptySpace)
+                        if(t.isEmptySpace && levelManager.WrongsBalls>0)
                             Debug.Log("Movesup"); 
                     }
 
