@@ -7,6 +7,8 @@ using MoreMountains.NiceVibrations;
 using System.Collections;
 using Unity.Burst.CompilerServices;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class BallMove : MonoBehaviour
 {
@@ -47,7 +49,9 @@ public class BallMove : MonoBehaviour
     public GameObject LastScrewHole;
 
     public currentEmptyColor EmptyScrewcol;
-
+   
+    int countScrewFixed;
+    public List<BallPlaced> MovesScrewlist;
     #region UndoFuntionality
     [Header("Undo Screws")]
     [Space]
@@ -74,8 +78,11 @@ public class BallMove : MonoBehaviour
         numberofscrews = DoubleTapScrew.Count;
         Y_Axis = GameManager.gm.ScrewPosVal;
         LastScrewHole = null;
+        countScrewFixed = 0;
+        MovesScrewlist.Clear();
+        CheckMoveHolesCol();
         Invoke(nameof(CallWrongScrewAction), .2f);
-
+        listLimit = MovesScrewlist.Count;
         
     }
     public void CallWrongScrewAction()
@@ -153,7 +160,7 @@ public class BallMove : MonoBehaviour
                         MMVibrationManager.Haptic(HapticTypes.SoftImpact, false, true, this);
                         numberofscrews--;
 
-                        if (numberofscrews <= 0)
+                        if (numberofscrews <=    0)
                         {
                             ispopup = false;
                            
@@ -242,10 +249,12 @@ public class BallMove : MonoBehaviour
                         if ((int)SelectedScrew.GetComponent<Ball>().ballplacedobj.nutsplacedcolor != (int)SelectedScrew.GetComponent<Ball>().nutscolor)
                         {
                             levelManager.WrongsBalls--;
+                           
                             GameManager.gm.IncreaseProgression();
                             levelManager.wrongballs.text = levelManager.WrongsBalls.ToString();
                             WrongScrews.Remove(SelectedScrew);
-                           
+
+                            CheckMovesUP();
                         }//for decrease value only if ball placed from wrong color to right color
 
                         SelectedScrew.GetComponent<Ball>().ballplacedobj.isEmptySpace = true;
@@ -268,7 +277,7 @@ public class BallMove : MonoBehaviour
 
 
                         levelManager.DecrementWrong();
-
+                       
                     }
                     else
                     {
@@ -333,6 +342,50 @@ public class BallMove : MonoBehaviour
         for (int i = 0; i < WrongScrews.Count; i++)
         {
             //  if (nutsplaced[i].transform.Ge)
+        }
+    }
+
+    public void CheckMovesUP()
+    {
+
+
+        Invoke(nameof(CheckMoves) , 1);
+    }
+    public void CheckMoveHolesCol()
+    {
+        for (int i = 0; i < ScrewHolesList.Count; i++)
+        {
+
+            if ((int)ScrewHolesList[i].nutsplacedcolor == (int)EmptyScrewcol)
+            {
+                MovesScrewlist.Add(ScrewHolesList[i]);
+
+            }
+
+        }
+    }
+    int listLimit, screwDone;
+    public void CheckMoves()
+    {
+        screwDone = 0;
+        for (int i = 0;i < MovesScrewlist.Count; i++)
+        {
+            if ((int)MovesScrewlist[i].nutsplacedcolor == (int)MovesScrewlist[i].Nut.nutscolor)
+            {
+                screwDone++;
+                if (screwDone == listLimit-1)
+                {
+                    foreach (var t in MovesScrewlist)
+                    {
+                        if(t.isEmptySpace)
+                            Debug.Log("Movesup"); 
+                    }
+
+                }
+                   
+               
+            }
+           
         }
     }
 }
