@@ -23,13 +23,13 @@ public class BallMove : MonoBehaviour
     [Header("Swapping Screws")]
     [Space]
     public List<GameObject> Screws = new List<GameObject>();
-  
+
     public List<GameObject> WrongScrews = new List<GameObject>();
 
     public List<Ball> HintScrew_List = new List<Ball>();
     public List<BallPlaced> ScrewHolesList = new List<BallPlaced>();
 
-    
+
 
 
     #endregion
@@ -49,7 +49,7 @@ public class BallMove : MonoBehaviour
     public GameObject LastScrewHole;
 
     public currentEmptyColor EmptyScrewcol;
-   
+
     int countScrewFixed;
     public List<BallPlaced> MovesScrewlist;
     #region UndoFuntionality
@@ -83,7 +83,7 @@ public class BallMove : MonoBehaviour
         CheckMoveHolesCol();
         Invoke(nameof(CallWrongScrewAction), .2f);
         listLimit = MovesScrewlist.Count;
-        
+
     }
     public void CallWrongScrewAction()
     {
@@ -98,8 +98,8 @@ public class BallMove : MonoBehaviour
         }
         levelManager.WrongsBalls = WrongScrews.Count;
         levelManager.wrongballs.text = levelManager.WrongsBalls.ToString();
-        GameManager.gm.progressionamount =  1 / (float) levelManager.WrongsBalls;
-       
+        GameManager.gm.progressionamount = 1 / (float)levelManager.WrongsBalls;
+
         #endregion
     }
     public void SwapNuts()
@@ -145,25 +145,25 @@ public class BallMove : MonoBehaviour
                     // Check if the raycast hits this object
                     if (hit.collider.gameObject.CompareTag("Player"))
                     {
-                        
+
                         hit.collider.GetComponent<SphereCollider>().enabled = false;
                         foreach (var item in DragScrewPArticles)
                         {
-                            ParticleSystem a = Instantiate(item,hit.collider.transform.position,Quaternion.identity);
-                            a.transform.position = new Vector3(a.transform.position.x, a.transform.rotation.y+.8f, a.transform.position.z);
+                            ParticleSystem a = Instantiate(item, hit.collider.transform.position, Quaternion.identity);
+                            a.transform.position = new Vector3(a.transform.position.x, a.transform.rotation.y + .8f, a.transform.position.z);
                             a.Play();
                         }
 
-                        Destroy(hit.collider.gameObject,.1f);
+                        Destroy(hit.collider.gameObject, .1f);
                         PopUp.clip = select_deselect[0];
                         PopUp.Play();
                         MMVibrationManager.Haptic(HapticTypes.SoftImpact, false, true, this);
                         numberofscrews--;
 
-                        if (numberofscrews <=    0)
+                        if (numberofscrews <= 0)
                         {
                             ispopup = false;
-                           
+
                             levelManager.WonLevel();
                         }
                     }
@@ -186,14 +186,14 @@ public class BallMove : MonoBehaviour
                 if (ispopup == false)
 
                 {
-                  
+
 
 
                     if (hit.collider.gameObject.GetComponent<Ball>().ispickable == true)
                     {
                         foreach (Ball ball in DoubleTapScrew)
                         {
-                            
+
                             if (ball.ispickable == false)
                             {
                                 ball.ispickable = true;
@@ -213,7 +213,7 @@ public class BallMove : MonoBehaviour
                         hit.collider.gameObject.transform.DOMoveY(hit.collider.gameObject.transform.position.y - Y_Axis, .1f);
                         PopUp.clip = select_deselect[1];
                         PopUp.Play();
-                        
+
                     }
 
                 }
@@ -240,16 +240,16 @@ public class BallMove : MonoBehaviour
 
                     PopUp.clip = select_deselect[1];
                     PopUp.Play();
-                   
+
                     if ((int)SelectedScrew.GetComponent<Ball>().nutscolor == (int)hit.collider.gameObject.GetComponent<BallPlaced>().nutsplacedcolor)
                     {
-                       
+
                         Vector3 placementPosition = hit.point;
 
                         if ((int)SelectedScrew.GetComponent<Ball>().ballplacedobj.nutsplacedcolor != (int)SelectedScrew.GetComponent<Ball>().nutscolor)
                         {
                             levelManager.WrongsBalls--;
-                           
+
                             GameManager.gm.IncreaseProgression();
                             levelManager.wrongballs.text = levelManager.WrongsBalls.ToString();
                             WrongScrews.Remove(SelectedScrew);
@@ -272,12 +272,12 @@ public class BallMove : MonoBehaviour
                             Debug.Log("Level Won");
                             GameManager.gm.IsTimerRunning = false;
                             Invoke(nameof(EnablePopup), 1);
-                           
+
                         }
 
 
                         levelManager.DecrementWrong();
-                       
+
                     }
                     else
                     {
@@ -302,26 +302,27 @@ public class BallMove : MonoBehaviour
     {
         ispopup = true;
         WinningMeshObj.SetActive(true);
+        levelManager.Popitnow.transform.DOScale(1,1).SetEase(Ease.OutBounce);
         for (int i = 0; i < ScrewHolesList.Count; i++)
         {
-           
-           
+
+
             if (ScrewHolesList[i].isEmptySpace == true)
             {
                 Debug.Log("Available placed ");
 
-                FinalScrew.gameObject.transform.DOJump(ScrewHolesList[i].gameObject.transform.GetChild(0).transform.position,.5f, 1, .5f);
-                FinalScrew.gameObject.transform.DOMoveY(FinalScrew.gameObject.transform.position.y + 0.05f , .4f).SetDelay(.4f);
+                FinalScrew.gameObject.transform.DOJump(ScrewHolesList[i].gameObject.transform.GetChild(0).transform.position, .5f, 1, .5f);
+                FinalScrew.gameObject.transform.DOMoveY(FinalScrew.gameObject.transform.position.y + 0.05f, .4f).SetDelay(.4f);
                 numberofscrews = numberofscrews + 1;
                 LastScrewHole = ScrewHolesList[i].gameObject;
-                Invoke(nameof(LastScrewSound),.4f);
-                
+                Invoke(nameof(LastScrewSound), .4f);
+
                 Debug.Log("Sounds");
             }
         }
-       
+
     }
-   
+
     public void LastScrewSound()
     {
         PopUp.clip = select_deselect[0];
@@ -330,11 +331,11 @@ public class BallMove : MonoBehaviour
     }
     public void CallActionComplete()
     {
-       
+
         MMVibrationManager.Haptic(HapticTypes.Success, false, true, this);
-        
+
     }
-   
+
 
 
     public void Undo()
@@ -345,11 +346,12 @@ public class BallMove : MonoBehaviour
         }
     }
 
+    #region MovesFunctionality
     public void CheckMovesUP()
     {
 
 
-        Invoke(nameof(CheckMoves) , 1);
+        Invoke(nameof(CheckMoves), 1);
     }
     public void CheckMoveHolesCol()
     {
@@ -368,24 +370,28 @@ public class BallMove : MonoBehaviour
     public void CheckMoves()
     {
         screwDone = 0;
-        for (int i = 0;i < MovesScrewlist.Count; i++)
+        for (int i = 0; i < MovesScrewlist.Count; i++)
         {
             if ((int)MovesScrewlist[i].nutsplacedcolor == (int)MovesScrewlist[i].Nut.nutscolor)
             {
                 screwDone++;
-                if (screwDone == listLimit-1)
+                if (screwDone == listLimit - 1)
                 {
                     foreach (var t in MovesScrewlist)
                     {
-                        if(t.isEmptySpace && levelManager.WrongsBalls>0)
-                            Debug.Log("Movesup"); 
+                        if (t.isEmptySpace && levelManager.WrongsBalls > 0)
+                        {
+                            Debug.Log("Movesup");
+                            levelManager.TopInfoOutOfMoves();
+                        }
                     }
 
                 }
-                   
-               
+
+
             }
-           
+
         }
-    }
+    } 
+    #endregion
 }

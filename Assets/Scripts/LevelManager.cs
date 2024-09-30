@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,12 @@ public class LevelManager : MonoBehaviour
     public GameObject WonPAnel;
     public Text wrongballs;
     public GameObject LoadingPanel;
+    public Text Popitnow;
+    public GameObject MoveUpPanel;
+    public GameObject TopOutofMovesImg;
+    public Text MovestimerText; // Assign in Inspector
+    private float timerDuration = 6f;
+    public Coroutine timerCoroutine; // Store reference to the coroutine
     private void Start()
     {
         wrongballs.text = "0 "+WrongsBalls.ToString();
@@ -18,6 +25,7 @@ public class LevelManager : MonoBehaviour
         {
             levelManagerInstance = this;
         }
+       
     }
     public void Home()
     {
@@ -33,7 +41,7 @@ public class LevelManager : MonoBehaviour
     public void WonLevel()
     {
         Invoke(nameof(WinGame), 1);
-
+        Popitnow.transform.DOScale(0,.5f).SetEase(Ease.OutBounce);
     }
     public void WinGame()
     {
@@ -48,5 +56,34 @@ public class LevelManager : MonoBehaviour
        
         wrongballs.text = "0 " + WrongsBalls.ToString();
     }
-   
+    public void TopInfoOutOfMoves()
+    {
+        TopOutofMovesImg.gameObject.SetActive(true);
+       
+        //StartCoroutine(StartTimer());
+        timerCoroutine = StartCoroutine(StartTimer());
+    }
+    IEnumerator StartTimer()
+    {
+       
+        float currentTime = timerDuration;
+
+        while (currentTime > 0)
+        {
+            // Update the UI Text to show the timer
+            MovestimerText.text = "Out of move,Game over in "+currentTime.ToString("F1")+"s"; // Show 1 decimal place
+
+            // Wait for 1 second
+            yield return new WaitForSeconds(1f);
+
+            // Reduce the time
+            currentTime -= 1f;
+        }
+
+        // Once the timer reaches 0, stop the countdown
+        MovestimerText.text = "Time's up!";
+        TopOutofMovesImg.SetActive(false);
+       
+        MoveUpPanel.transform.DOScale(1, 1).SetEase(Ease.OutBounce);
+    }
 }

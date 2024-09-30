@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour
     public void SKipLevel()
     {
         LevelManager.levelManagerInstance.LoadingPanel.SetActive(true);
+        StopCoroutine(LevelManager.levelManagerInstance.timerCoroutine);
         Invoke(nameof(SkipLevelLoading), 1.4f);
     }
     public void SkipLevelLoading()
