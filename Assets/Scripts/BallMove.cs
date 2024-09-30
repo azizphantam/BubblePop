@@ -44,7 +44,10 @@ public class BallMove : MonoBehaviour
     public float Time;
     public Sprite lvlbg;
     public Sprite lvlimg;
-   
+    public GameObject LastScrewHole;
+
+    public currentEmptyColor EmptyScrewcol;
+
     #region UndoFuntionality
     [Header("Undo Screws")]
     [Space]
@@ -52,13 +55,25 @@ public class BallMove : MonoBehaviour
     public Ball Screw_Undo;
     #endregion
 
-    
+    public enum currentEmptyColor
+    {
+        Brown,
+        Red,
+        Cream,
+        Blue,
+        Black,
+        White,
+        Green,
+        Yellow,
+        Orange,
+        pink
+    }
     void Start()
     {
         mainCamera = Camera.main;
         numberofscrews = DoubleTapScrew.Count;
         Y_Axis = GameManager.gm.ScrewPosVal;
-
+        LastScrewHole = null;
         Invoke(nameof(CallWrongScrewAction), .2f);
 
         
@@ -287,16 +302,23 @@ public class BallMove : MonoBehaviour
                 Debug.Log("Available placed ");
 
                 FinalScrew.gameObject.transform.DOJump(ScrewHolesList[i].gameObject.transform.GetChild(0).transform.position,.5f, 1, .5f);
-                FinalScrew.gameObject.transform.DOMoveY(FinalScrew.gameObject.transform.position.y + 0.05f , .4f).onComplete(ResetUnlock).SetDelay(.4f);
+                FinalScrew.gameObject.transform.DOMoveY(FinalScrew.gameObject.transform.position.y + 0.05f , .4f).SetDelay(.4f);
                 numberofscrews = numberofscrews + 1;
-                PopUp.clip = select_deselect[0];
-                PopUp.Play();
+                LastScrewHole = ScrewHolesList[i].gameObject;
+                Invoke(nameof(LastScrewSound),.4f);
+                
                 Debug.Log("Sounds");
             }
         }
        
     }
-    public void SoundLast
+   
+    public void LastScrewSound()
+    {
+        PopUp.clip = select_deselect[0];
+        PopUp.Play();
+        LastScrewHole.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
+    }
     public void CallActionComplete()
     {
        
