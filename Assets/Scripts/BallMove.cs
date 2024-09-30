@@ -246,6 +246,7 @@ public class BallMove : MonoBehaviour
                         if (levelManager.WrongsBalls == 0)
                         {
                             Debug.Log("Level Won");
+                            GameManager.gm.IsTimerRunning = false;
                             Invoke(nameof(EnablePopup), 1);
                            
                         }
@@ -286,12 +287,16 @@ public class BallMove : MonoBehaviour
                 Debug.Log("Available placed ");
 
                 FinalScrew.gameObject.transform.DOJump(ScrewHolesList[i].gameObject.transform.GetChild(0).transform.position,.5f, 1, .5f);
-                FinalScrew.gameObject.transform.DOMoveY(FinalScrew.gameObject.transform.position.y + 0.05f , .4f).SetDelay(.4f);
+                FinalScrew.gameObject.transform.DOMoveY(FinalScrew.gameObject.transform.position.y + 0.05f , .4f).onComplete(ResetUnlock).SetDelay(.4f);
                 numberofscrews = numberofscrews + 1;
+                PopUp.clip = select_deselect[0];
+                PopUp.Play();
+                Debug.Log("Sounds");
             }
         }
        
     }
+    public void SoundLast
     public void CallActionComplete()
     {
        
