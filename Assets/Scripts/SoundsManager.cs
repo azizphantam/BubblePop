@@ -89,11 +89,10 @@ public class SoundsManager : MonoBehaviour
     {
         if (@as == null)
             return;
-        if (PlayerPrefs.GetInt("EnableVoice") == 1)
-        {
+       
             @as.volume = 1f;
             PlaySound(GameBackGroundMusic, @as);
-        }
+       
            
     }
   

@@ -36,20 +36,20 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        if (CustomPlayLevel.instance.isSelectCustomLEvel == true)
+        if (CustomPlayLevel.instance.isSelectCustomLevel == true)
         {
             foreach (GameObject level in Levels)
             {
                 level.SetActive(false);
             }
 
-            Levels[CustomPlayLevel.instance.levelnumber].SetActive(true);
-            totalTimeInSeconds = Levels[CustomPlayLevel.instance.levelnumber].GetComponent<BallMove>().Time;
-            CurrentLvlImgbg.sprite = Levels[CustomPlayLevel.instance.levelnumber].GetComponent<BallMove>().lvlbg;
-            CurrentLvlImg.sprite = Levels[CustomPlayLevel.instance.levelnumber].GetComponent<BallMove>().lvlimg;
+            Levels[CustomPlayLevel.levelnumber].SetActive(true);
+            totalTimeInSeconds = Levels[CustomPlayLevel.levelnumber].GetComponent<BallMove>().Time;
+            CurrentLvlImgbg.sprite = Levels[CustomPlayLevel.levelnumber].GetComponent<BallMove>().lvlbg;
+            CurrentLvlImg.sprite = Levels[CustomPlayLevel.levelnumber].GetComponent<BallMove>().lvlimg;
             remainingTime = totalTimeInSeconds; // Initialize remaining time
 
-            levelnumber.text = "Level " + (CustomPlayLevel.instance.levelnumber + 1).ToString("00");
+            levelnumber.text = "Level " + (CustomPlayLevel.levelnumber + 1).ToString("00");
         }
         else
         {

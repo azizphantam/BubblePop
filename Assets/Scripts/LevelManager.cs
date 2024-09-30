@@ -49,7 +49,7 @@ public class LevelManager : MonoBehaviour
         WonPAnel.SetActive(true);
         SoundsManager.instance.PlayLevelWinSound(SoundsManager.instance.AS);
         GameManager.gm.IncreaseCoins(35);
-        if (CustomPlayLevel.instance.isSelectCustomLEvel != true)
+        if (CustomPlayLevel.instance.isSelectCustomLevel != true)
         {
             PlayerPrefs.SetInt("CurrentLevel", PlayerPrefs.GetInt("CurrentLevel") + 1);
         }

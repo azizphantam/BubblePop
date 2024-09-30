@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using DG.Tweening;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 public class DailyReward : MonoBehaviour
 {
     public int[] dailyRewards = { 100, 200, 300, 400, 500, 600, 700 }; // Array of daily reward amounts for 7 days
@@ -12,7 +13,8 @@ public class DailyReward : MonoBehaviour
                                                           //  public TMP_Text rewardTest;
     public Button getreward_btns;
     private int current;
-    public List<Sprite> RewardImage; // reward panel images
+    public List<GameObject> RewardImage; // reward panel images
+    public List<GameObject> TickImages; // reward panel images
    
    
   
@@ -21,7 +23,20 @@ public class DailyReward : MonoBehaviour
         
         DateTime currentDate = DateTime.Today;
         DateTime lastRewardDate;
-        
+        int consecutiveDays = PlayerPrefs.GetInt(consecutiveDaysKey, 0) -1;
+        for (int i = 0; i < dailyRewards.Length; i++)
+        {
+            if(i<= consecutiveDays)
+            {
+                RewardImage[i].SetActive(true);
+                TickImages[i].SetActive(true);
+            }
+            else
+            {
+                RewardImage[i].SetActive(false);
+                TickImages[i].SetActive(false);
+            }
+        }
         if (PlayerPrefs.HasKey(lastRewardDateKey))
         {
             lastRewardDate = DateTime.Parse(PlayerPrefs.GetString(lastRewardDateKey));
@@ -156,7 +171,8 @@ public class DailyReward : MonoBehaviour
 
                 GrantDailyReward(consecutiveDays);
 
-
+                RewardImage[consecutiveDays-1].SetActive(true);
+                TickImages[consecutiveDays-1].SetActive(true);
                 // getreward_btns[PlayerPrefs.GetInt("ConsecutiveDays")].interactable = true;
                 PlayerPrefs.SetInt(consecutiveDaysKey, consecutiveDays);
             }

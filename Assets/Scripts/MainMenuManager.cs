@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using MoreMountains.NiceVibrations;
 public class MainMenuManager : MonoBehaviour
 {
     public GameObject LoadingPanel;
@@ -22,6 +23,15 @@ public class MainMenuManager : MonoBehaviour
             return;
         }
 
+    }
+    private void Start()
+    {
+
+        if (CustomPlayLevel.instance.isSelectCustomLevel == true)
+        {
+            PanelList[1].transform.DOLocalMoveX(1120f, 0);
+            PanelList[1].transform.DOLocalMoveX(0, .5f).SetEase(Ease.Linear);
+        }
     }
     public void GamePlayScene()
     {
@@ -46,14 +56,19 @@ public class MainMenuManager : MonoBehaviour
     }
     public void Home()
     {
-        CustomPlayLevel.instance.isSelectCustomLEvel = false;
+        CustomPlayLevel.instance.isSelectCustomLevel = false;
         PanelList[1].transform.DOLocalMoveX(-1120f, .5f).SetEase(Ease.Linear);
     }
     public void Levels()
     {
-        CustomPlayLevel.instance.isSelectCustomLEvel = true;
+        CustomPlayLevel.instance.isSelectCustomLevel = true;
         PanelList[1].transform.DOLocalMoveX(1120f, 0);
         PanelList[1].transform.DOLocalMoveX(0, .5f).SetEase(Ease.Linear);
         
+    }
+    public void BtnClickSound() 
+    {
+        SoundsManager.instance.PlayButtonClipSound(SoundsManager.instance.AS);
+        MMVibrationManager.Haptic(HapticTypes.SoftImpact, false, true, this);
     }
 }
