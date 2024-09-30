@@ -531,7 +531,7 @@ TextureImporter:
         height: 235
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 68, y: 90, z: 68, w: 64}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -573,7 +573,7 @@ TextureImporter:
         height: 235
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 94, y: 86, z: 78, w: 93}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -672,10 +672,10 @@ TextureImporter:
       name: atlas-1_65
       rect:
         serializedVersion: 2
-        x: 1198
-        y: 807
-        width: 243
-        height: 179
+        x: 1207
+        y: 823
+        width: 223
+        height: 151
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

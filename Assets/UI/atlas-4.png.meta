@@ -479,6 +479,90 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: atlas-4_17
+      rect:
+        serializedVersion: 2
+        x: 1063
+        y: 376
+        width: 99
+        height: 142
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2101ebadfc11c747983c0362aebacd7
+      internalID: -1056840261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlas-4_18
+      rect:
+        serializedVersion: 2
+        x: 1254
+        y: 342
+        width: 200
+        height: 194
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96ba87505e1bd4e48a66834cc89d9664
+      internalID: -127536268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlas-4_19
+      rect:
+        serializedVersion: 2
+        x: 1526
+        y: 396
+        width: 103
+        height: 103
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 938b570b8af35ee40a804a3952635261
+      internalID: -347345136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlas-4_20
+      rect:
+        serializedVersion: 2
+        x: 1660
+        y: 378
+        width: 178
+        height: 151
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7def66e60553d1e4b8c52a526a2015d2
+      internalID: 1772186050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -499,7 +583,11 @@ TextureImporter:
       atlas-4_14: 947693470
       atlas-4_15: 990573677
       atlas-4_16: -231548811
+      atlas-4_17: -1056840261
+      atlas-4_18: -127536268
+      atlas-4_19: -347345136
       atlas-4_2: 1251905757
+      atlas-4_20: 1772186050
       atlas-4_3: 490582084
       atlas-4_4: -119494219
       atlas-4_5: -180295630

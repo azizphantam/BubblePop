@@ -49,7 +49,11 @@ public class LevelManager : MonoBehaviour
         WonPAnel.SetActive(true);
         SoundsManager.instance.PlayLevelWinSound(SoundsManager.instance.AS);
         GameManager.gm.IncreaseCoins(35);
-        PlayerPrefs.SetInt("CurrentLevel", PlayerPrefs.GetInt("CurrentLevel") + 1);
+        if (CustomPlayLevel.instance.isSelectCustomLEvel != true)
+        {
+            PlayerPrefs.SetInt("CurrentLevel", PlayerPrefs.GetInt("CurrentLevel") + 1);
+        }
+        
     }
     public void DecrementWrong()
     {
@@ -71,7 +75,7 @@ public class LevelManager : MonoBehaviour
         while (currentTime > 0)
         {
             // Update the UI Text to show the timer
-            MovestimerText.text = "Out of move,Game over in "+currentTime.ToString("F1")+"s"; // Show 1 decimal place
+            MovestimerText.text = currentTime.ToString("F0")+"s"; // Show 1 decimal place
 
             // Wait for 1 second
             yield return new WaitForSeconds(1f);
@@ -81,7 +85,7 @@ public class LevelManager : MonoBehaviour
         }
 
         // Once the timer reaches 0, stop the countdown
-        MovestimerText.text = "Time's up!";
+        MovestimerText.text = "0s";
         TopOutofMovesImg.SetActive(false);
        
         MoveUpPanel.transform.DOScale(1, 1).SetEase(Ease.OutBounce);

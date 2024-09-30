@@ -36,18 +36,37 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        LoadNextLevel();
+        if (CustomPlayLevel.instance.isSelectCustomLEvel == true)
+        {
+            foreach (GameObject level in Levels)
+            {
+                level.SetActive(false);
+            }
 
-        remainingTime = totalTimeInSeconds; // Initialize remaining time
-       
-        levelnumber.text = "Level " + (PlayerPrefs.GetInt("CurrentLevel") + 1).ToString("00");
-       
-        
+            Levels[CustomPlayLevel.instance.levelnumber].SetActive(true);
+            totalTimeInSeconds = Levels[CustomPlayLevel.instance.levelnumber].GetComponent<BallMove>().Time;
+            CurrentLvlImgbg.sprite = Levels[CustomPlayLevel.instance.levelnumber].GetComponent<BallMove>().lvlbg;
+            CurrentLvlImg.sprite = Levels[CustomPlayLevel.instance.levelnumber].GetComponent<BallMove>().lvlimg;
+            remainingTime = totalTimeInSeconds; // Initialize remaining time
+
+            levelnumber.text = "Level " + (CustomPlayLevel.instance.levelnumber + 1).ToString("00");
+        }
+        else
+        {
+            LoadNextLevel();
+
+            remainingTime = totalTimeInSeconds; // Initialize remaining time
+
+            levelnumber.text = "Level " + (PlayerPrefs.GetInt("CurrentLevel") + 1).ToString("00");
+
+        }
+
+
 
     }
     public void IncreaseProgression()
     {
-        CurrentLvlImg.fillAmount = CurrentLvlImg.fillAmount+ progressionamount;
+        CurrentLvlImg.fillAmount = CurrentLvlImg.fillAmount + progressionamount;
     }
     public void LoadNextLevel()
     {
@@ -55,7 +74,7 @@ public class GameManager : MonoBehaviour
         {
             level.SetActive(false);
         }
-        if(PlayerPrefs.GetInt("CurrentLevel")< Levels.Count)
+        if (PlayerPrefs.GetInt("CurrentLevel") < Levels.Count)
         {
             Levels[PlayerPrefs.GetInt("CurrentLevel")].SetActive(true);
         }
@@ -65,12 +84,12 @@ public class GameManager : MonoBehaviour
             Levels[PlayerPrefs.GetInt("CurrentLevel")].SetActive(true);
         }
         totalTimeInSeconds = Levels[PlayerPrefs.GetInt("CurrentLevel")].GetComponent<BallMove>().Time;
-        CurrentLvlImgbg.sprite = Levels[PlayerPrefs.GetInt("CurrentLevel")].GetComponent<BallMove>().lvlbg; 
+        CurrentLvlImgbg.sprite = Levels[PlayerPrefs.GetInt("CurrentLevel")].GetComponent<BallMove>().lvlbg;
         CurrentLvlImg.sprite = Levels[PlayerPrefs.GetInt("CurrentLevel")].GetComponent<BallMove>().lvlimg;
     }
     public void ReplayLevel()
     {
-       LevelManager.levelManagerInstance.LoadingPanel.SetActive(true);
+        LevelManager.levelManagerInstance.LoadingPanel.SetActive(true);
         Invoke(nameof(SceneLoading), 1.4f);
 
     }
@@ -95,23 +114,23 @@ public class GameManager : MonoBehaviour
     {
         if (remainingTime > 0 && IsTimerRunning)
         {
-            
-                // Update time every second
-                remainingTime -= Time.deltaTime;
 
-                // Calculate minutes and seconds
-                int minutes = Mathf.FloorToInt(remainingTime / 60f);
-                int seconds = Mathf.FloorToInt(remainingTime % 60);
+            // Update time every second
+            remainingTime -= Time.deltaTime;
 
-                // Display the time in the format "mm:ss"
-                string timeFormatted = string.Format("{0:00}:{1:00}", minutes, seconds);
-                
+            // Calculate minutes and seconds
+            int minutes = Mathf.FloorToInt(remainingTime / 60f);
+            int seconds = Mathf.FloorToInt(remainingTime % 60);
 
-                // If you're using a UI Text component, update it
-                if (timerText != null)
-                {
-                    timerText.text = timeFormatted;
-                }
+            // Display the time in the format "mm:ss"
+            string timeFormatted = string.Format("{0:00}:{1:00}", minutes, seconds);
+
+
+            // If you're using a UI Text component, update it
+            if (timerText != null)
+            {
+                timerText.text = timeFormatted;
+            }
 
             // Wait for the next frame before updating the time again
             if (remainingTime <= 10)
@@ -121,10 +140,10 @@ public class GameManager : MonoBehaviour
 
 
         }
-        else if(IsTimerRunning==true && remainingTime<=0)
+        else if (IsTimerRunning == true && remainingTime <= 0)
         {
             // Once time reaches zero, you can handle what happens next (e.g., Game Over, etc.)
-           
+
             OpenPanel(TimeOutPanel);
             SoundsManager.instance.PlayLevelFailSound(SoundsManager.instance.AS);
             IsTimerRunning = false;
@@ -132,7 +151,7 @@ public class GameManager : MonoBehaviour
             timerText.text = timeFormatted;
         }
 
-       
+
     }
     // Optional function if you want to access remaining time as minutes and seconds
     public (int, int) GetMinutesAndSeconds()
@@ -145,8 +164,8 @@ public class GameManager : MonoBehaviour
     public void OpenPanel(GameObject pn)
     {
         pn.gameObject.SetActive(true);
-        pn.transform.GetChild(0).DOScale(0,0);
-        pn.transform.GetChild(0).DOScale(1,0.5f).SetEase(Ease.Linear);
+        pn.transform.GetChild(0).DOScale(0, 0);
+        pn.transform.GetChild(0).DOScale(1, 0.5f).SetEase(Ease.Linear);
     }
     public void ClosePanel(GameObject pn)
     {
@@ -160,18 +179,18 @@ public class GameManager : MonoBehaviour
             ClosePanel(TimeOutPanel);
             decreaseCoins(350);
             remainingTime = 60;
-            IsTimerRunning=true;
+            IsTimerRunning = true;
         }
         else
         {
             OpenPanel(FailedPanel);
         }
-       
+
     }
     public void IncreaseCoins(int coinamount)
     {
         PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + coinamount);
-        Coins.text = PlayerPrefs.GetInt("Coins").ToString();    
+        Coins.text = PlayerPrefs.GetInt("Coins").ToString();
     }
     public void decreaseCoins(int coinamount)
     {
