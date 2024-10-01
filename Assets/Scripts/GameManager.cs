@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public Image CurrentLvlImgbg;
     public Image CurrentLvlImg;
     public float progressionamount;
+    public BallMove CurrentLevel;
     private void Awake()
     {
         if (gm == null)
@@ -48,7 +49,7 @@ public class GameManager : MonoBehaviour
             CurrentLvlImgbg.sprite = Levels[CustomPlayLevel.levelnumber].GetComponent<BallMove>().lvlbg;
             CurrentLvlImg.sprite = Levels[CustomPlayLevel.levelnumber].GetComponent<BallMove>().lvlimg;
             remainingTime = totalTimeInSeconds; // Initialize remaining time
-
+            CurrentLevel = Levels[CustomPlayLevel.levelnumber].GetComponent<BallMove>();
             levelnumber.text = "Level " + (CustomPlayLevel.levelnumber + 1).ToString("00");
         }
         else
@@ -58,7 +59,7 @@ public class GameManager : MonoBehaviour
             remainingTime = totalTimeInSeconds; // Initialize remaining time
 
             levelnumber.text = "Level " + (PlayerPrefs.GetInt("CurrentLevel") + 1).ToString("00");
-
+            CurrentLevel = Levels[PlayerPrefs.GetInt("CurrentLevel")].GetComponent<BallMove>();
         }
 
 
@@ -103,7 +104,7 @@ public class GameManager : MonoBehaviour
     public void SKipLevel()
     {
         LevelManager.levelManagerInstance.LoadingPanel.SetActive(true);
-        StopCoroutine(LevelManager.levelManagerInstance.timerCoroutine);
+       // StopCoroutine(LevelManager.levelManagerInstance.timerCoroutine);
         Invoke(nameof(SkipLevelLoading), 1.4f);
     }
     public void SkipLevelLoading()
@@ -207,4 +208,11 @@ public class GameManager : MonoBehaviour
     {
         MMVibrationManager.Haptic(HapticTypes.Failure, false, true, this);
     }
+
+
+    public void CallBoostSwapping()
+    {
+        CurrentLevel.SwapNuts();
+    }
+
 }
