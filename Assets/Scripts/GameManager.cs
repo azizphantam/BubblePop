@@ -81,7 +81,9 @@ public class GameManager : MonoBehaviour
         else
         {
             PlayerPrefs.SetInt("CurrentLevel", 0);
+            PlayerPrefs.SetInt("AllLevelsDone", 1);
             Levels[PlayerPrefs.GetInt("CurrentLevel")].SetActive(true);
+            
         }
         totalTimeInSeconds = Levels[PlayerPrefs.GetInt("CurrentLevel")].GetComponent<BallMove>().Time;
         CurrentLvlImgbg.sprite = Levels[PlayerPrefs.GetInt("CurrentLevel")].GetComponent<BallMove>().lvlbg;

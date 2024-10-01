@@ -32,6 +32,13 @@ public class LevelSelectionPanel : MonoBehaviour
                 playbtn[i].SetActive(false);
                 LockImg[i].SetActive(true);
             }
+
+            if (PlayerPrefs.GetInt("AllLevelsDone") == 1)
+            {
+                lvlbtns[i].interactable = true;
+                playbtn[i].SetActive(true);
+                LockImg[i].SetActive(false);
+            }
         }
     }
 }
