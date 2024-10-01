@@ -13,6 +13,11 @@ public class MainMenuManager : MonoBehaviour
     public List<GameObject> PanelList;
     public static MainMenuManager Instance;
     int icondefault = 0;
+
+    public List<GameObject> LevelsScrollerBlackImages;
+    public GameObject levelScrollerObj;
+
+
     private void Awake()
     {
         if (Instance == null)
@@ -26,11 +31,24 @@ public class MainMenuManager : MonoBehaviour
     }
     private void Start()
     {
+        
+        levelScrollerObj.transform.DOMoveY(levelScrollerObj.transform.position.y - ( 400 * ( PlayerPrefs.GetInt("CurrentLevel") +1 ) ), .5f);
 
         if (CustomPlayLevel.instance.isSelectCustomLevel == true)
         {
             PanelList[1].transform.DOLocalMoveX(1120f, 0);
             PanelList[1].transform.DOLocalMoveX(0, .5f).SetEase(Ease.Linear);
+        }
+        for (int i = 0; i < LevelsScrollerBlackImages.Count; i++)
+        {
+            if(i< PlayerPrefs.GetInt("CurrentLevel"))
+            {
+                LevelsScrollerBlackImages[i].SetActive(false);
+            }
+            else
+            {
+                LevelsScrollerBlackImages[i].SetActive(true);
+            }
         }
     }
     public void GamePlayScene()
