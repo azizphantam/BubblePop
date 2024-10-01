@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 public class DailyReward : MonoBehaviour
 {
-    public int[] dailyRewards = { 100, 200, 300, 400, 500, 600, 700 }; // Array of daily reward amounts for 7 days
+    public int[] dailyRewards = { 100, 150, 200, 250, 300, 350, 2 }; // Array of daily reward amounts for 7 days
     public string lastRewardDateKey = "LastRewardDate"; // Key to store last reward date in PlayerPrefs
     public string consecutiveDaysKey = "ConsecutiveDays"; // Key to store consecutive login days in PlayerPrefs
                                                           //  public TMP_Text rewardTest;
@@ -57,7 +57,10 @@ public class DailyReward : MonoBehaviour
         }
       
     }
-
+    private void OnDisable()
+    {
+        MainMenuManager.Instance.Coinsmenu.text = PlayerPrefs.GetInt("Coins").ToString();
+    }
     void GrantDailyReward(int consecutiveDays)
     {
        
@@ -71,60 +74,47 @@ public class DailyReward : MonoBehaviour
 
             case 1:
                
-                Debug.Log(" 100 Dollars ");
+               
                 getreward_btns.interactable = false;
-
+                PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 100);
                 break;
             case 2:
 
-                PlayerPrefs.SetInt("Lives", PlayerPrefs.GetInt("Lives") + 1);
-                Debug.Log(" 1 Live ");
+                PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 150);
                 getreward_btns.interactable = false;
               
               
                 
                 break;
             case 3:
-                PlayerPrefs.SetInt("Dollars",
-                   PlayerPrefs.GetInt("Dollars") + 150);
-                Debug.Log(" 150 Dollars ");
+                PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 200);
                 getreward_btns.interactable = false;
                
                 
                
                 break;
             case 4:
-                PlayerPrefs.SetInt("Dollars",
-                   PlayerPrefs.GetInt("Dollars") + 180);
-                PlayerPrefs.SetInt("Lives", PlayerPrefs.GetInt("Lives") + 1);
-                Debug.Log(" 180 Dollars : 01 Live");
+                PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 250);
                 getreward_btns.interactable = false;
               
               
               
                 break;
             case 5:
-                PlayerPrefs.SetInt("Dollars",
-                   PlayerPrefs.GetInt("Dollars") + 1000);
-
-                Debug.Log(" 1000 Dollars ");
+                PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 300);
                 getreward_btns.interactable = false;
                
               
                
                 break;
             case 6:
-                PlayerPrefs.SetInt("Dollars",
-                   PlayerPrefs.GetInt("Dollars") + 1250);
-
-                Debug.Log(" 1250 Dollars ");
+                PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 350);
                 getreward_btns.interactable = false;
               
                 break;
             case 7:
 
-                PlayerPrefs.SetInt("Lives", PlayerPrefs.GetInt("Lives") + 3);
-                Debug.Log(" 3 Live ");
+                PlayerPrefs.SetInt("Hints", PlayerPrefs.GetInt("Hints") + 2);
                 getreward_btns.interactable = false;
                 
                

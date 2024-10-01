@@ -22,7 +22,11 @@ public class SoundsManager : MonoBehaviour
     }
     private void Start()
     {
-        PlayGameBuilding_Bg(bg);
+        if (PlayerPrefs.GetInt("bg") == 0)
+        {
+            PlayGameBuilding_Bg(bg);
+        }
+       
     }
     public void ButtonClick()
     {
@@ -64,10 +68,13 @@ public class SoundsManager : MonoBehaviour
 
     public void PlayButtonClipSound(AudioSource @as)
     {
-        ////if (@as == null)
-        ////    return;
-        @as.volume = 1f;
-        PlaySound(buttonClipSound, @as);
+        if(PlayerPrefs.GetInt("Sounds")==0)
+        {
+            ////if (@as == null)
+            ////    return;
+            @as.volume = 1f;
+            PlaySound(buttonClipSound, @as);
+        }
     }
 
 

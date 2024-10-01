@@ -208,7 +208,7 @@ namespace MoreMountains.NiceVibrations
 
             DebugLog("[MMVibrationManager] Regular Haptic");
 
-            if (Android())
+            if (Android() && PlayerPrefs.GetInt("Haptics")==0)
 			{
 				switch (type)
 				{

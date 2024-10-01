@@ -11,7 +11,7 @@ public class Splash : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("FirstTime") == 0)
         {
-            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 30);
+            //PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 30);
             PlayerPrefs.SetInt("FirstTime", 1);
         }
         loadingimage.transform.DOScale(1, 1.8f);

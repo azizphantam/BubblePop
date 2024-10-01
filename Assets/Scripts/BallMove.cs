@@ -8,6 +8,7 @@ using System.Collections;
 using Unity.Burst.CompilerServices;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 
 public class BallMove : MonoBehaviour
@@ -19,20 +20,19 @@ public class BallMove : MonoBehaviour
     public LevelManager levelManager;
     public GameObject WinningMeshObj;
 
-    #region Swapping/Hint
-    [Header("Swapping Screws")]
+
     [Space]
     public List<GameObject> Screws = new List<GameObject>();
 
     public List<GameObject> WrongScrews = new List<GameObject>();
 
-    public List<Ball> HintScrew_List = new List<Ball>();
+
     public List<BallPlaced> ScrewHolesList = new List<BallPlaced>();
 
 
 
 
-    #endregion
+
 
     public List<Ball> DoubleTapScrew = new List<Ball>();
     public bool ispopup = false;
@@ -58,6 +58,21 @@ public class BallMove : MonoBehaviour
     public BallPlaced PlacedScrew_Undo;
     public Ball Screw_Undo;
     #endregion
+
+
+
+    #region Swapping/Hint
+    [Header("Swapping Screws")]
+    public List<Ball> SwapScrew_L = new List<Ball>();
+    public List<BallPlaced> SwapHoles_L = new List<BallPlaced>();
+
+
+    public List<BallPlaced> SwappingHolesList = new List<BallPlaced>();
+
+    public Ball SwapedScrew_1 , SwapedScrew_2;
+   
+    #endregion
+
 
     public enum currentEmptyColor
     {
@@ -104,14 +119,80 @@ public class BallMove : MonoBehaviour
     }
     public void SwapNuts()
     {
-        HintScrew_List.Clear();
-        ScrewHolesList.Clear();
+
+        SwapScrew_L.Clear();
+        SwappingHolesList.Clear();
+        SwapHoles_L.Clear();
+
         for (int i = 0; i < WrongScrews.Count; i++)
         {
-            HintScrew_List.Add(WrongScrews[i].GetComponent<Ball>());
-            ScrewHolesList.Add(WrongScrews[i].GetComponent<Ball>().ballplacedobj);
+            SwapScrew_L.Add(WrongScrews[i].GetComponent<Ball>());
+            SwapHoles_L.Add(SwapScrew_L[i].GetComponent<Ball>().ballplacedobj);
+
         }
 
+        // we have screws and screws holders
+
+
+
+        for (int i = 0; i < SwapScrew_L.Count; i++)
+        {
+            for (int j = 0; j < SwapHoles_L.Count; j++)
+            {
+                if ((int)SwapScrew_L[i].nutscolor == (int)SwapHoles_L[j].nutsplacedcolor && (int)SwapScrew_L[i].ballplacedobj.nutsplacedcolor == (int)SwapHoles_L[j].Nut.nutscolor)
+                {
+                    if (!SwappingHolesList.Contains(SwapHoles_L[j]))
+                    {
+                        SwappingHolesList.Add(SwapHoles_L[j]); // add the swapped screw
+
+                        SwapedScrew_1 = SwapScrew_L[i];  // Add first screw
+
+                        SwapedScrew_2 = SwapHoles_L[j].Nut; // Add second screw
+
+                        SwapedTheScrew(SwapedScrew_1, SwapHoles_L[j]);
+                        SwapedTheScrew(SwapedScrew_2, SwapScrew_L[i].ballplacedobj);
+
+                        //SwapedScrew_1.transform.DOJump(SwapHoles_L[j].transform.GetChild(0).transform.position, .5f, 1, .5f);
+
+                       // SwapedScrew_2.transform.DOJump(SwapScrew_L[i].ballplacedobj.transform.GetChild(0).transform.position, .5f, 1, .5f);
+
+
+
+
+
+
+
+                        return;
+                       
+                    }
+                }
+            }
+
+
+
+
+        }
+
+        // now we match the indexing wise nutsholders colors with screw colors
+
+
+
+        
+    }
+
+
+    public void SwapedTheScrew(Ball screw , BallPlaced screwhole)
+    {
+        screw.ballplacedobj.isEmptySpace = true;
+        screw.ballplacedobj = screwhole;
+        screw.ballplacedobj.isEmptySpace = false;
+        screwhole.Nut = screw;
+        screw.transform.DOJump(screwhole.gameObject.transform.GetChild(0).transform.position, .5f, 1, .5f);
+        Invoke(nameof(CallActionComplete), .6f);
+        screwhole.gameObject.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
+        // screw.transform.DOMoveY(screw.transform.position.y - Y_Axis, .2f).SetDelay(.4f);
+        screw.ispickable = true;
+        SelectedScrew = null; // Deselect the object
     }
     void Update()
     {
@@ -302,7 +383,7 @@ public class BallMove : MonoBehaviour
     {
         ispopup = true;
         WinningMeshObj.SetActive(true);
-        levelManager.Popitnow.transform.DOScale(1,1).SetEase(Ease.OutBounce);
+        levelManager.Popitnow.transform.DOScale(1, 1).SetEase(Ease.OutBounce);
         for (int i = 0; i < ScrewHolesList.Count; i++)
         {
 
@@ -392,6 +473,6 @@ public class BallMove : MonoBehaviour
             }
 
         }
-    } 
+    }
     #endregion
 }

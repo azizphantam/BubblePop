@@ -9,10 +9,9 @@ public class LevelSelectionPanel : MonoBehaviour
     public List<GameObject> playbtn;
     public List<GameObject> LockImg;
 
-   
+    
     private void OnEnable()
     {
-
         for (int i = 0; i < lvlbtns.Count; i++)
         {
             if (playbtn[i] == null)

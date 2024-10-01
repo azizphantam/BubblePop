@@ -152,6 +152,7 @@ public class GameManager : MonoBehaviour
             IsTimerRunning = false;
             string timeFormatted = string.Format("{0:00}:{1:00}", 00, 00);
             timerText.text = timeFormatted;
+            Coins.text = PlayerPrefs.GetInt("Coins").ToString();
         }
 
 
@@ -213,6 +214,15 @@ public class GameManager : MonoBehaviour
     public void CallBoostSwapping()
     {
         CurrentLevel.SwapNuts();
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
     }
 
 }
