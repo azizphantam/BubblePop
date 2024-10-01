@@ -32,7 +32,7 @@ public class MainMenuManager : MonoBehaviour
     private void Start()
     {
         
-        levelScrollerObj.transform.DOMoveY(levelScrollerObj.transform.position.y - ( 400 * ( PlayerPrefs.GetInt("CurrentLevel") ) ), .5f);
+        levelScrollerObj.transform.DOMoveY(levelScrollerObj.transform.position.y - ( 400 * ( PlayerPrefs.GetInt("CurrentLevel")  ) ), .5f);
 
         if (CustomPlayLevel.instance.isSelectCustomLevel == true)
         {
