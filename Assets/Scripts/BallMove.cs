@@ -62,7 +62,9 @@ public class BallMove : MonoBehaviour
 
 
     #region Swapping/Hint
+
     [Header("Swapping Screws")]
+    [Space]
     public List<Ball> SwapScrew_L = new List<Ball>();
     public List<BallPlaced> SwapHoles_L = new List<BallPlaced>();
 
@@ -71,6 +73,7 @@ public class BallMove : MonoBehaviour
 
     public Ball SwapedScrew_1, SwapedScrew_2;
     public BallPlaced SwapHolder1, SwapHolder2;
+
     #endregion
 
 
@@ -178,6 +181,7 @@ public class BallMove : MonoBehaviour
                             levelManager.WrongsBalls -= 2;
                             WrongScrews.Clear();
                             CallWrongScrewAction();
+
                             if (levelManager.WrongsBalls == 0)
                             {
                                 Debug.Log("Level Won");
@@ -195,10 +199,56 @@ public class BallMove : MonoBehaviour
 
             }
         }
-       
+
     }
 
 
+    public void HintNuts()
+    {
+
+        SwapScrew_L.Clear();
+        SwappingHolesList.Clear();
+        SwapHoles_L.Clear();
+
+        SwapedScrew_1 = null;
+        SwapedScrew_2 = null;
+        SwapHolder1 = null;
+        SwapHolder2 = null;
+
+
+
+        for (int i = 0; i < WrongScrews.Count; i++)
+        {
+            for (int j = 0; j < ScrewHolesList.Count; j++)
+            {
+
+                if ((int)WrongScrews[i].GetComponent<Ball>().nutscolor == (int)ScrewHolesList[j].nutsplacedcolor && ScrewHolesList[j].isEmptySpace==true)
+                {
+                    WrongScrews[i].GetComponent<Ball>().ballplacedobj.isEmptySpace = true;
+                    WrongScrews[i].GetComponent<Ball>().ballplacedobj = ScrewHolesList[j];
+                    WrongScrews[i].GetComponent<Ball>().ballplacedobj.isEmptySpace = false;
+                    ScrewHolesList[j].Nut = WrongScrews[i].GetComponent<Ball>();
+                    WrongScrews[i].transform.DOJump(ScrewHolesList[j].gameObject.transform.GetChild(0).transform.position, .5f, 1, .5f);
+
+
+
+                    levelManager.WrongsBalls -= 1;
+                    WrongScrews.Clear();
+                    CallWrongScrewAction();
+
+                    if (levelManager.WrongsBalls == 0)
+                    {
+                        Debug.Log("Level Won");
+                        GameManager.gm.IsTimerRunning = false;
+                        Invoke(nameof(EnablePopup), 1);
+
+                    }
+                    return;
+                }
+
+            }
+        }
+    }
 
     void Update()
     {

@@ -215,7 +215,10 @@ public class GameManager : MonoBehaviour
     {
         CurrentLevel.SwapNuts();
     }
-
+    public void CallHintsBoost()
+    {
+        CurrentLevel.HintNuts();
+    }
     public void PauseGame()
     {
         Time.timeScale = 0;
