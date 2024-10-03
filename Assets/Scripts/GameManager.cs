@@ -256,7 +256,7 @@ public class GameManager : MonoBehaviour
     public void BtnClickSound()
     {
         SoundsManager.instance.PlayButtonClipSound(SoundsManager.instance.AS);
-
+        MMVibrationManager.Haptic(HapticTypes.Selection, false, true, this);
     }
     public void ErrorHaptics()
     {
