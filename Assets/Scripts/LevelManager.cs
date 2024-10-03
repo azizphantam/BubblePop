@@ -29,6 +29,7 @@ public class LevelManager : MonoBehaviour
     }
     public void Home()
     {
+        Time.timeScale = 1; 
         LoadingPanel.SetActive(true);
         Invoke(nameof(SceneLoading),1.4f);
       
