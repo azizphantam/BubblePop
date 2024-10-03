@@ -186,6 +186,7 @@ public class BallMove : MonoBehaviour
                             {
                                 Debug.Log("Level Won");
                                 GameManager.gm.IsTimerRunning = false;
+                                GameManager.gm.IsHintTimerRunning = false;
                                 Invoke(nameof(EnablePopup), 1);
 
                             }
@@ -240,6 +241,7 @@ public class BallMove : MonoBehaviour
                     {
                         Debug.Log("Level Won");
                         GameManager.gm.IsTimerRunning = false;
+                        GameManager.gm.IsHintTimerRunning = false;
                         Invoke(nameof(EnablePopup), 1);
 
                     }
@@ -408,13 +410,18 @@ public class BallMove : MonoBehaviour
                         {
                             Debug.Log("Level Won");
                             GameManager.gm.IsTimerRunning = false;
+                            GameManager.gm.IsHintTimerRunning = false;
                             Invoke(nameof(EnablePopup), 1);
 
                         }
 
 
                         levelManager.DecrementWrong();
-
+                        if (GameManager.gm.IsHintTimerRunning)
+                        {
+                            HintNuts();
+                        }
+                       
                     }
                     else
                     {

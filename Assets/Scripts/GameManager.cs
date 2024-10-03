@@ -2,6 +2,7 @@ using DG.Tweening;
 using MoreMountains.NiceVibrations;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -28,6 +29,13 @@ public class GameManager : MonoBehaviour
     public Image CurrentLvlImg;
     public float progressionamount;
     public BallMove CurrentLevel;
+
+
+    public GameObject HintBG;
+    public float HintRmainingTime;
+    public bool IsHintTimerRunning = false;
+    public Text HintTimertext; // UI Text to display the time. (Optional if using UI)
+
     private void Awake()
     {
         if (gm == null)
@@ -37,6 +45,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+        IsHintTimerRunning = false;
         if (CustomPlayLevel.instance.isSelectCustomLevel == true)
         {
             foreach (GameObject level in Levels)
@@ -84,7 +93,7 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("CurrentLevel", 0);
             PlayerPrefs.SetInt("AllLevelsDone", 1);
             Levels[PlayerPrefs.GetInt("CurrentLevel")].SetActive(true);
-            
+
         }
         totalTimeInSeconds = Levels[PlayerPrefs.GetInt("CurrentLevel")].GetComponent<BallMove>().Time;
         CurrentLvlImgbg.sprite = Levels[PlayerPrefs.GetInt("CurrentLevel")].GetComponent<BallMove>().lvlbg;
@@ -104,7 +113,7 @@ public class GameManager : MonoBehaviour
     public void SKipLevel()
     {
         LevelManager.levelManagerInstance.LoadingPanel.SetActive(true);
-       // StopCoroutine(LevelManager.levelManagerInstance.timerCoroutine);
+        // StopCoroutine(LevelManager.levelManagerInstance.timerCoroutine);
         Invoke(nameof(SkipLevelLoading), 1.4f);
     }
     public void SkipLevelLoading()
@@ -115,6 +124,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        #region GameTimer_Working
         if (remainingTime > 0 && IsTimerRunning)
         {
 
@@ -154,8 +164,41 @@ public class GameManager : MonoBehaviour
             timerText.text = timeFormatted;
             Coins.text = PlayerPrefs.GetInt("Coins").ToString();
         }
+        #endregion
+
+        #region HintTimer_Working
+        if (HintRmainingTime > 0 && IsHintTimerRunning)
+        {
+            HintBG.SetActive(true);
+            // Update time every second
+            HintRmainingTime -= Time.deltaTime;
+
+            // Calculate minutes and seconds
+         
 
 
+            // If you're using a UI Text component, update it
+            if (HintTimertext != null)
+            {
+                HintTimertext.text = HintRmainingTime.ToString();
+            }
+
+            // Wait for the next frame before updating the time again
+            
+
+
+        }
+        else if ( HintRmainingTime <= 0)
+        {
+            // Once time reaches zero, you can handle what happens next (e.g., Game Over, etc.)
+
+           
+            
+            IsHintTimerRunning = false;
+            HintRmainingTime = 15;
+            HintBG.SetActive(false);
+        } 
+        #endregion
     }
     // Optional function if you want to access remaining time as minutes and seconds
     public (int, int) GetMinutesAndSeconds()
@@ -217,7 +260,8 @@ public class GameManager : MonoBehaviour
     }
     public void CallHintsBoost()
     {
-        CurrentLevel.HintNuts();
+        // CurrentLevel.HintNuts();
+        IsHintTimerRunning = true;
     }
     public void PauseGame()
     {
