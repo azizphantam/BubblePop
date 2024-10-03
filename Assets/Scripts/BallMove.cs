@@ -69,8 +69,8 @@ public class BallMove : MonoBehaviour
 
     public List<BallPlaced> SwappingHolesList = new List<BallPlaced>();
 
-    public Ball SwapedScrew_1 , SwapedScrew_2;
-   
+    public Ball SwapedScrew_1, SwapedScrew_2;
+    public BallPlaced SwapHolder1, SwapHolder2;
     #endregion
 
 
@@ -124,6 +124,13 @@ public class BallMove : MonoBehaviour
         SwappingHolesList.Clear();
         SwapHoles_L.Clear();
 
+        SwapedScrew_1 = null;
+        SwapedScrew_2 = null;
+        SwapHolder1 = null;
+        SwapHolder2 = null;
+
+
+
         for (int i = 0; i < WrongScrews.Count; i++)
         {
             SwapScrew_L.Add(WrongScrews[i].GetComponent<Ball>());
@@ -134,66 +141,65 @@ public class BallMove : MonoBehaviour
         // we have screws and screws holders
 
 
-
-        for (int i = 0; i < SwapScrew_L.Count; i++)
+        for (int i = 0; i < WrongScrews.Count; i++)
         {
             for (int j = 0; j < SwapHoles_L.Count; j++)
             {
-                if ((int)SwapScrew_L[i].nutscolor == (int)SwapHoles_L[j].nutsplacedcolor && (int)SwapScrew_L[i].ballplacedobj.nutsplacedcolor == (int)SwapHoles_L[j].Nut.nutscolor)
+
+
+                if (WrongScrews.Count >= 2)
                 {
-                    if (!SwappingHolesList.Contains(SwapHoles_L[j]))
+                    if ((int)WrongScrews[i].GetComponent<Ball>().nutscolor == (int)SwapHoles_L[j].nutsplacedcolor && (int)WrongScrews[i].GetComponent<Ball>().ballplacedobj.nutsplacedcolor == (int)SwapHoles_L[j].Nut.nutscolor)
                     {
-                        SwappingHolesList.Add(SwapHoles_L[j]); // add the swapped screw
+                        if (!SwappingHolesList.Contains(SwapHoles_L[j]))
+                        {
+                            SwappingHolesList.Add(SwapHoles_L[j]); // add the swapped screw
 
-                        SwapedScrew_1 = SwapScrew_L[i];  // Add first screw
+                            SwapedScrew_1 = WrongScrews[i].GetComponent<Ball>();  // Add first screw
+                            SwapedScrew_2 = SwapHoles_L[j].Nut; // Add second screw
 
-                        SwapedScrew_2 = SwapHoles_L[j].Nut; // Add second screw
+                            SwapHolder1 = SwapedScrew_1.ballplacedobj;
+                            SwapHolder2 = SwapedScrew_2.ballplacedobj;
 
-                        SwapedTheScrew(SwapedScrew_1, SwapHoles_L[j]);
-                        SwapedTheScrew(SwapedScrew_2, SwapScrew_L[i].ballplacedobj);
+                            SwapedScrew_1.transform.DOJump(SwapedScrew_2.ballplacedobj.transform.GetChild(0).transform.position, .5f, 1, .5f);
+                            SwapedScrew_2.transform.DOJump(SwapedScrew_1.ballplacedobj.transform.GetChild(0).transform.position, .5f, 1, .5f);
 
-                        //SwapedScrew_1.transform.DOJump(SwapHoles_L[j].transform.GetChild(0).transform.position, .5f, 1, .5f);
-
-                       // SwapedScrew_2.transform.DOJump(SwapScrew_L[i].ballplacedobj.transform.GetChild(0).transform.position, .5f, 1, .5f);
-
-
-
-
-
+                            SwapedScrew_1.ballplacedobj = SwapHolder2;
+                            SwapHolder2.Nut = SwapedScrew_1;
 
 
-                        return;
-                       
+                            SwapedScrew_2.ballplacedobj = SwapHolder1;
+                            SwapHolder1.Nut = SwapedScrew_2;
+
+
+
+
+
+                            levelManager.WrongsBalls -= 2;
+                            WrongScrews.Clear();
+                            CallWrongScrewAction();
+                            if (levelManager.WrongsBalls == 0)
+                            {
+                                Debug.Log("Level Won");
+                                GameManager.gm.IsTimerRunning = false;
+                                Invoke(nameof(EnablePopup), 1);
+
+                            }
+                            return;
+
+                        }
                     }
+
                 }
+
+
             }
-
-
-
-
         }
-
-        // now we match the indexing wise nutsholders colors with screw colors
-
-
-
-        
+       
     }
 
 
-    public void SwapedTheScrew(Ball screw , BallPlaced screwhole)
-    {
-        screw.ballplacedobj.isEmptySpace = true;
-        screw.ballplacedobj = screwhole;
-        screw.ballplacedobj.isEmptySpace = false;
-        screwhole.Nut = screw;
-        screw.transform.DOJump(screwhole.gameObject.transform.GetChild(0).transform.position, .5f, 1, .5f);
-        Invoke(nameof(CallActionComplete), .6f);
-        screwhole.gameObject.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
-        // screw.transform.DOMoveY(screw.transform.position.y - Y_Axis, .2f).SetDelay(.4f);
-        screw.ispickable = true;
-        SelectedScrew = null; // Deselect the object
-    }
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0)) // Left mouse click

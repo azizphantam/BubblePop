@@ -48,6 +48,30 @@ public class Ball : MonoBehaviour
         }
         
     }
+    public void CallFunc()
+    {
+        foreach (Vector3 dir in directions)
+        {
+            // Cast the ray from the object's position in the specified direction
+            RaycastHit[] hits = Physics.RaycastAll(transform.position, dir, raycastDistance, layerMask);
+
+            // Process each hit
+            foreach (RaycastHit hit in hits)
+            {
+                Collider hitCollider = hit.collider;
+                if (hitCollider.gameObject.tag == "place")
+                {
+                    ballplacedobj = hit.collider.gameObject.GetComponent<BallPlaced>();
+                    hit.collider.gameObject.GetComponent<BallPlaced>().Nut = this;
+
+                    Debug.Log("Hit object: " + hitCollider.name + " in direction: " + dir);
+                }
+
+
+
+            }
+        }
+    }
     private void Update()
     {
         
