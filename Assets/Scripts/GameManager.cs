@@ -256,6 +256,7 @@ public class GameManager : MonoBehaviour
     public void BtnClickSound()
     {
         SoundsManager.instance.PlayButtonClipSound(SoundsManager.instance.AS);
+
     }
     public void ErrorHaptics()
     {

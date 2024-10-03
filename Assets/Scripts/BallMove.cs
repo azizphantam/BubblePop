@@ -230,8 +230,7 @@ public class BallMove : MonoBehaviour
             for (int j = 0; j < ScrewHolesList.Count; j++)
             {
 
-                if (WrongScrews.Count > 1)
-                {
+                
                     if ((int)WrongScrews[i].GetComponent<Ball>().nutscolor == (int)ScrewHolesList[j].nutsplacedcolor && ScrewHolesList[j].isEmptySpace == true)
                     {
                         WrongScrews[i].GetComponent<Ball>().ballplacedobj.isEmptySpace = true;
@@ -256,12 +255,7 @@ public class BallMove : MonoBehaviour
                         }
                         return;
                     }
-                }
-                else
-                {
-                    GameManager.gm.EnoughHints.SetActive(true);
-                }
-            
+               
                
             }
         }
