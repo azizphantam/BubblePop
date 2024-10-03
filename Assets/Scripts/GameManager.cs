@@ -14,13 +14,15 @@ public class GameManager : MonoBehaviour
     public List<GameObject> Levels = new List<GameObject>();
     public float ScrewPosVal;
 
+    #region GametimerWorking
     [Header("Timer Working")]
     private float totalTimeInSeconds; // Set the total time (e.g., 120 seconds = 2 minutes)
     private float remainingTime;
     public bool IsTimerRunning = true;
     public Text timerText; // UI Text to display the time. (Optional if using UI)
 
-    public GameObject TimeOutPanel;
+    public GameObject TimeOutPanel; 
+    #endregion
     public GameObject FailedPanel;
     public Text Coins;
     public Text levelnumber;
@@ -31,10 +33,17 @@ public class GameManager : MonoBehaviour
     public BallMove CurrentLevel;
 
 
+    #region HintFunctionality
     public GameObject HintBG;
     public float HintRmainingTime;
     public bool IsHintTimerRunning = false;
-    public Text HintTimertext; // UI Text to display the time. (Optional if using UI)
+    public Text HintTimertext; // UI Text to display the time. (Optional if using UI) 
+    #endregion
+
+    public GameObject HandAnim;
+
+    public GameObject EnoughSwaps, EnoughHints;
+
 
     private void Awake()
     {
@@ -180,7 +189,7 @@ public class GameManager : MonoBehaviour
             // If you're using a UI Text component, update it
             if (HintTimertext != null)
             {
-                HintTimertext.text = HintRmainingTime.ToString();
+                HintTimertext.text = HintRmainingTime.ToString("00");
             }
 
             // Wait for the next frame before updating the time again

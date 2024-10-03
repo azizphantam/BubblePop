@@ -165,7 +165,10 @@ public class BallMove : MonoBehaviour
                             SwapHolder2 = SwapedScrew_2.ballplacedobj;
 
                             SwapedScrew_1.transform.DOJump(SwapedScrew_2.ballplacedobj.transform.GetChild(0).transform.position, .5f, 1, .5f);
+                            
                             SwapedScrew_2.transform.DOJump(SwapedScrew_1.ballplacedobj.transform.GetChild(0).transform.position, .5f, 1, .5f);
+                           
+
 
                             SwapedScrew_1.ballplacedobj = SwapHolder2;
                             SwapHolder2.Nut = SwapedScrew_1;
@@ -174,7 +177,8 @@ public class BallMove : MonoBehaviour
                             SwapedScrew_2.ballplacedobj = SwapHolder1;
                             SwapHolder1.Nut = SwapedScrew_2;
 
-
+                            SwapedScrew_1.transform.DOMoveY(SwapedScrew_1.transform.position.y + .2f, .2f).SetDelay(.6f);
+                            SwapedScrew_2.transform.DOMoveY(SwapedScrew_2.transform.position.y + .2f, .2f).SetDelay(.6f);
 
 
 
@@ -196,7 +200,10 @@ public class BallMove : MonoBehaviour
                     }
 
                 }
-
+                else
+                {
+                    GameManager.gm.EnoughSwaps.SetActive(true);
+                }
 
             }
         }
@@ -223,31 +230,39 @@ public class BallMove : MonoBehaviour
             for (int j = 0; j < ScrewHolesList.Count; j++)
             {
 
-                if ((int)WrongScrews[i].GetComponent<Ball>().nutscolor == (int)ScrewHolesList[j].nutsplacedcolor && ScrewHolesList[j].isEmptySpace==true)
+                if (WrongScrews.Count > 1)
                 {
-                    WrongScrews[i].GetComponent<Ball>().ballplacedobj.isEmptySpace = true;
-                    WrongScrews[i].GetComponent<Ball>().ballplacedobj = ScrewHolesList[j];
-                    WrongScrews[i].GetComponent<Ball>().ballplacedobj.isEmptySpace = false;
-                    ScrewHolesList[j].Nut = WrongScrews[i].GetComponent<Ball>();
-                    WrongScrews[i].transform.DOJump(ScrewHolesList[j].gameObject.transform.GetChild(0).transform.position, .5f, 1, .5f);
-
-
-
-                    levelManager.WrongsBalls -= 1;
-                    WrongScrews.Clear();
-                    CallWrongScrewAction();
-
-                    if (levelManager.WrongsBalls == 0)
+                    if ((int)WrongScrews[i].GetComponent<Ball>().nutscolor == (int)ScrewHolesList[j].nutsplacedcolor && ScrewHolesList[j].isEmptySpace == true)
                     {
-                        Debug.Log("Level Won");
-                        GameManager.gm.IsTimerRunning = false;
-                        GameManager.gm.IsHintTimerRunning = false;
-                        Invoke(nameof(EnablePopup), 1);
+                        WrongScrews[i].GetComponent<Ball>().ballplacedobj.isEmptySpace = true;
+                        WrongScrews[i].GetComponent<Ball>().ballplacedobj = ScrewHolesList[j];
+                        WrongScrews[i].GetComponent<Ball>().ballplacedobj.isEmptySpace = false;
+                        ScrewHolesList[j].Nut = WrongScrews[i].GetComponent<Ball>();
+                        WrongScrews[i].transform.DOJump(ScrewHolesList[j].gameObject.transform.GetChild(0).transform.position, .5f, 1, .5f);
+                        WrongScrews[i].transform.DOMoveY(WrongScrews[i].transform.position.y + .2f, .2f).SetDelay(.6f);
 
+
+                        levelManager.WrongsBalls -= 1;
+                        WrongScrews.Clear();
+                        CallWrongScrewAction();
+
+                        if (levelManager.WrongsBalls == 0)
+                        {
+                            Debug.Log("Level Won");
+                            GameManager.gm.IsTimerRunning = false;
+                            GameManager.gm.IsHintTimerRunning = false;
+                            Invoke(nameof(EnablePopup), 1);
+
+                        }
+                        return;
                     }
-                    return;
                 }
-
+                else
+                {
+                    GameManager.gm.EnoughHints.SetActive(true);
+                }
+            
+               
             }
         }
     }
@@ -304,6 +319,10 @@ public class BallMove : MonoBehaviour
                             ispopup = false;
 
                             levelManager.WonLevel();
+                            if (PlayerPrefs.GetInt("CurrentLevel") == 0)
+                            {
+                                GameManager.gm.HandAnim.SetActive(false);
+                            }
                         }
                     }
                 }
@@ -472,6 +491,11 @@ public class BallMove : MonoBehaviour
         PopUp.clip = select_deselect[0];
         PopUp.Play();
         LastScrewHole.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
+        if (PlayerPrefs.GetInt("CurrentLevel") == 0)
+        {
+            GameManager.gm.HandAnim.SetActive(true);
+        }
+       
     }
     public void CallActionComplete()
     {
