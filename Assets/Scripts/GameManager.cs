@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject EnoughSwaps;
 
-
+    public bool IsClickAble = true; 
     private void Awake()
     {
         if (gm == null)
@@ -288,6 +288,7 @@ public class GameManager : MonoBehaviour
         // CurrentLevel.HintNuts();
         if (PlayerPrefs.GetInt("Hint") == 0)
         {
+            
             AdsManager.Instance.ShowRewardAd(OnAdCompleteHint);
         }
         else
@@ -306,10 +307,12 @@ public class GameManager : MonoBehaviour
     public void PauseGame()
     {
         Time.timeScale = 0;
+        IsClickAble = false; 
     }
     public void ResumeGame()
     {
         Time.timeScale = 1;
+        IsClickAble = true;
     }
 
 }

@@ -486,6 +486,10 @@ PrefabInstance:
       propertyPath: admobRewardedID.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1092677111326133270, guid: 14aa4ca216be7c54099869ddcd206958, type: 3}
+      propertyPath: admobRewardedID.Array.data[0]
+      value: ca-app-pub-3940256099942544/5224354917
+      objectReference: {fileID: 0}
     - target: {fileID: 5649658100446230678, guid: 14aa4ca216be7c54099869ddcd206958, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

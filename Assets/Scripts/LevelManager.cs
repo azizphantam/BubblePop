@@ -22,9 +22,17 @@ public class LevelManager : MonoBehaviour
     public List<GameObject> BoosterPanel;
     public GameObject HandTutorialsFirst;
     public Text winpanel_coinsAMount;
+
+
+
+
+
+
+
     private void Start()
     {
         wrongballs.text = "0 "+WrongsBalls.ToString();
+      
         if (levelManagerInstance == null)
         {
             levelManagerInstance = this;
@@ -53,6 +61,16 @@ public class LevelManager : MonoBehaviour
             BoosterPanel[1].SetActive(true);
         }
     }
+
+   
+   
+
+   
+
+
+
+
+
     public void Home()
     {
         Time.timeScale = 1; 
@@ -75,6 +93,7 @@ public class LevelManager : MonoBehaviour
       
         WonPAnel.SetActive(true);
         winpanel_coinsAMount.text = PlayerPrefs.GetInt("Coins").ToString();
+       
         SoundsManager.instance.PlayLevelWinSound(SoundsManager.instance.AS);
         GameManager.gm.IncreaseCoins(35);
         winpanel_coinsAMount.text = PlayerPrefs.GetInt("Coins").ToString();

@@ -263,7 +263,7 @@ public class BallMove : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // Left mouse click
+        if (Input.GetMouseButtonDown(0) && GameManager.gm.IsClickAble) // Left mouse click
         {
             SelectObject();
             if (SelectedScrew != null)
