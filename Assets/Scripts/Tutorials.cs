@@ -6,9 +6,10 @@ using UnityEngine;
 public class Tutorials : MonoBehaviour
 {
     public List<SphereCollider> Screws;
-    public GameObject Hand;
-    public List<Transform> StartPos_Hand;
-    public List<Transform> EndPos_Hand;
+    public List<SphereCollider> WinnignSCrews;
+
+    public List<MeshCollider> screwholder;
+    public List<GameObject> Hand;
     public static Tutorials t_instance;
     public int CurrentIndex = 0;
     private void Awake()
@@ -17,32 +18,72 @@ public class Tutorials : MonoBehaviour
     }
     private void Start()
     {
+        StartCoroutine(nameof(DelayTutorial));
+
+       
+       
+       
+    }
+    IEnumerator DelayTutorial()
+    {
+        yield return new WaitForSeconds(.5f);
         if (PlayerPrefs.GetInt("CurrentLevel") == 0)
         {
-            MoveNextHand();
+
+            foreach (SphereCollider item in Screws)
+            {
+                item.enabled = false;
+
+            }
+            foreach (GameObject item in Hand)
+            {
+                item.SetActive(false);
+
+            }
+            foreach (MeshCollider item in screwholder)
+            {
+                item.enabled = false;
+            }
+            Screws[CurrentIndex].enabled = true;
+            screwholder[CurrentIndex].enabled = true;
+
+            Hand[CurrentIndex].SetActive(true);
+
         }
-        else
+    }
+    public void EnableColliders()
+    {
+        foreach (SphereCollider item in WinnignSCrews)
         {
-            Hand.SetActive(false);
+            item.enabled = true;
+
         }
-       
     }
     public void MoveNextHand()
     {
-        Hand.transform.DOMove(StartPos_Hand[CurrentIndex].transform.position, .5f);
-        if (CurrentIndex < Screws.Count)
+      
+        if (CurrentIndex < Screws.Count-1)
         {
             CurrentIndex++;
             foreach (SphereCollider item in Screws)
             {
                 item.enabled = false;
+               
+            }
+            foreach (GameObject item in Hand)
+            {
+                item.SetActive(false);
+
+            }
+            foreach (MeshCollider item in screwholder)
+            {
+                item.enabled = false;
             }
             Screws[CurrentIndex].enabled = true;
-            Hand.transform.DOMove(EndPos_Hand[CurrentIndex].transform.position, .5f);
+            screwholder[CurrentIndex].enabled = true;
+
+            Hand[CurrentIndex].SetActive(true);
         }
-        else
-        {
-            Hand.gameObject.SetActive(false);
-        }
+        
     }
 }

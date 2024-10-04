@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject HandAnim;
 
-    public GameObject EnoughSwaps, EnoughHints;
+    public GameObject EnoughSwaps;
 
 
     private void Awake()

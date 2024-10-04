@@ -385,6 +385,9 @@ public class BallMove : MonoBehaviour
 
             if (hit.collider.gameObject.CompareTag("place"))
             {
+
+                
+
                 Debug.Log(hit.collider.gameObject);
                 MMVibrationManager.Haptic(HapticTypes.Selection, false, true, this);
                 if (hit.collider.gameObject.GetComponent<BallPlaced>().isEmptySpace == true)
@@ -392,7 +395,10 @@ public class BallMove : MonoBehaviour
 
                     PopUp.clip = select_deselect[1];
                     PopUp.Play();
-
+                    if (PlayerPrefs.GetInt("CurrentLevel") == 0)
+                    {
+                        Tutorials.t_instance.MoveNextHand();
+                    }
                     if ((int)SelectedScrew.GetComponent<Ball>().nutscolor == (int)hit.collider.gameObject.GetComponent<BallPlaced>().nutsplacedcolor)
                     {
 
@@ -457,6 +463,15 @@ public class BallMove : MonoBehaviour
     }
     public void EnablePopup()
     {
+        foreach (var item in levelManager.Boosters)
+        {
+            item.SetActive(false);
+        }
+        levelManager.HandTutorialsFirst.SetActive(false);
+        if (PlayerPrefs.GetInt("Currentlevel") == 0)
+        {
+            Tutorials.t_instance.EnableColliders();
+        }
         ispopup = true;
         WinningMeshObj.SetActive(true);
         levelManager.Popitnow.transform.DOScale(1, 1).SetEase(Ease.OutBounce);

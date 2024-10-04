@@ -18,6 +18,9 @@ public class LevelManager : MonoBehaviour
     public Text MovestimerText; // Assign in Inspector
     private float timerDuration = 6f;
     public Coroutine timerCoroutine; // Store reference to the coroutine
+    public List<GameObject> Boosters;
+    public List<GameObject> BoosterPanel;
+    public GameObject HandTutorialsFirst;
     private void Start()
     {
         wrongballs.text = "0 "+WrongsBalls.ToString();
@@ -25,7 +28,28 @@ public class LevelManager : MonoBehaviour
         {
             levelManagerInstance = this;
         }
-       
+        if (PlayerPrefs.GetInt("CurrentLevel") ==0 )
+        {
+            foreach (var item in Boosters)
+            {
+                item.SetActive(false);
+            }
+        }
+        if (PlayerPrefs.GetInt("CurrentLevel") == 3)
+        {
+            foreach (var item in Boosters)
+            {
+                item.SetActive(true);
+            }
+        }
+        if (PlayerPrefs.GetInt("CurrentLevel") >=1 )
+        {
+            BoosterPanel[0].SetActive(true);
+        }
+        if (PlayerPrefs.GetInt("CurrentLevel") >= 2)
+        {
+            BoosterPanel[1].SetActive(true);
+        }
     }
     public void Home()
     {
