@@ -77,6 +77,7 @@ public class LevelManager : MonoBehaviour
         winpanel_coinsAMount.text = PlayerPrefs.GetInt("Coins").ToString();
         SoundsManager.instance.PlayLevelWinSound(SoundsManager.instance.AS);
         GameManager.gm.IncreaseCoins(35);
+        winpanel_coinsAMount.text = PlayerPrefs.GetInt("Coins").ToString();
         if (CustomPlayLevel.instance.isSelectCustomLevel != true)
         {
             PlayerPrefs.SetInt("CurrentLevel", PlayerPrefs.GetInt("CurrentLevel") + 1);
