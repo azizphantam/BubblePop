@@ -31,8 +31,10 @@ public class MainMenuManager : MonoBehaviour
         }
 
     }
+    
     private void Start()
     {
+        
         checkSoundPanelSetting();
         levelScrollerObj.transform.DOMoveY(levelScrollerObj.transform.position.y - ( 400 *  PlayerPrefs.GetInt("CurrentLevel") ), 1);
         Coinsmenu.text = PlayerPrefs.GetInt("Coins").ToString();

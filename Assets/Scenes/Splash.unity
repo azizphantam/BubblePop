@@ -450,6 +450,91 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1674096778
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1092677111326133270, guid: 14aa4ca216be7c54099869ddcd206958, type: 3}
+      propertyPath: bannerInitState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1092677111326133270, guid: 14aa4ca216be7c54099869ddcd206958, type: 3}
+      propertyPath: noRewardAdPanel
+      value: 
+      objectReference: {fileID: 8664630914291360638, guid: 31de08e7091571e458de58dded030955, type: 3}
+    - target: {fileID: 1092677111326133270, guid: 14aa4ca216be7c54099869ddcd206958, type: 3}
+      propertyPath: admobAdPlacement
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1092677111326133270, guid: 14aa4ca216be7c54099869ddcd206958, type: 3}
+      propertyPath: bannerNetworkType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1092677111326133270, guid: 14aa4ca216be7c54099869ddcd206958, type: 3}
+      propertyPath: enableAdmobTestAds
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1092677111326133270, guid: 14aa4ca216be7c54099869ddcd206958, type: 3}
+      propertyPath: rewardedNetworkType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1092677111326133270, guid: 14aa4ca216be7c54099869ddcd206958, type: 3}
+      propertyPath: admobRewardedID.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5649658100446230678, guid: 14aa4ca216be7c54099869ddcd206958, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5649658100446230678, guid: 14aa4ca216be7c54099869ddcd206958, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5649658100446230678, guid: 14aa4ca216be7c54099869ddcd206958, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5649658100446230678, guid: 14aa4ca216be7c54099869ddcd206958, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5649658100446230678, guid: 14aa4ca216be7c54099869ddcd206958, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5649658100446230678, guid: 14aa4ca216be7c54099869ddcd206958, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5649658100446230678, guid: 14aa4ca216be7c54099869ddcd206958, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5649658100446230678, guid: 14aa4ca216be7c54099869ddcd206958, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5649658100446230678, guid: 14aa4ca216be7c54099869ddcd206958, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5649658100446230678, guid: 14aa4ca216be7c54099869ddcd206958, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8593275627038013970, guid: 14aa4ca216be7c54099869ddcd206958, type: 3}
+      propertyPath: m_Name
+      value: AdsManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 14aa4ca216be7c54099869ddcd206958, type: 3}
 --- !u!1 &1996777733
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,3 +1213,4 @@ SceneRoots:
   - {fileID: 8908236714465232735}
   - {fileID: 1996777736}
   - {fileID: 1621412616}
+  - {fileID: 1674096778}

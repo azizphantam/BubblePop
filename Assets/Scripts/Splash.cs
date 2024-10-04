@@ -13,6 +13,8 @@ public class Splash : MonoBehaviour
         {
             //PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 30);
             PlayerPrefs.SetInt("FirstTime", 1);
+            PlayerPrefs.SetInt("Swap", 1);
+            PlayerPrefs.SetInt("Hint", 1);
         }
         loadingimage.transform.DOScale(1, 1.8f);
         Invoke(nameof(loadScene),1.7f);

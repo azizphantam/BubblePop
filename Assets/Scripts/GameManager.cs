@@ -266,13 +266,43 @@ public class GameManager : MonoBehaviour
 
     public void CallBoostSwapping()
     {
-        CurrentLevel.SwapNuts();
+        if (PlayerPrefs.GetInt("Swap") == 0)
+        {
+            AdsManager.Instance.ShowRewardAd(OnAdCompleteSwap);
+        }
+        else
+        {
+            CurrentLevel.SwapNuts();
+            PlayerPrefs.SetInt("Swap", 0);
+        }
+        
     }
+    public void OnAdCompleteSwap(string status)
+    {
+        CurrentLevel.SwapNuts();
+        
+    }
+
     public void CallHintsBoost()
     {
         // CurrentLevel.HintNuts();
-        IsHintTimerRunning = true;
+        if (PlayerPrefs.GetInt("Hint") == 0)
+        {
+            AdsManager.Instance.ShowRewardAd(OnAdCompleteHint);
+        }
+        else
+        {
+            IsHintTimerRunning = true;
+            PlayerPrefs.SetInt("Hint", 0);
+        }
+        
     }
+    public void OnAdCompleteHint(string status)
+    {
+        IsHintTimerRunning = true;
+       
+    }
+
     public void PauseGame()
     {
         Time.timeScale = 0;
