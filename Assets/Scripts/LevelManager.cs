@@ -21,6 +21,7 @@ public class LevelManager : MonoBehaviour
     public List<GameObject> Boosters;
     public List<GameObject> BoosterPanel;
     public GameObject HandTutorialsFirst;
+    public Text winpanel_coinsAMount;
     private void Start()
     {
         wrongballs.text = "0 "+WrongsBalls.ToString();
@@ -28,25 +29,26 @@ public class LevelManager : MonoBehaviour
         {
             levelManagerInstance = this;
         }
-        if (PlayerPrefs.GetInt("CurrentLevel") ==0 )
+        if (PlayerPrefs.GetInt("CurrentLevel") ==0 && PlayerPrefs.GetInt("AllLevelsDone")==0)
         {
             foreach (var item in Boosters)
             {
                 item.SetActive(false);
             }
         }
-        if (PlayerPrefs.GetInt("CurrentLevel") >= 3)
+        if (PlayerPrefs.GetInt("CurrentLevel") > 1 && PlayerPrefs.GetInt("AllLevelsDone") == 0 )
         {
-            foreach (var item in Boosters)
-            {
-                item.SetActive(true);
-            }
+            Boosters[0].SetActive(true);
+        }  
+        if (PlayerPrefs.GetInt("CurrentLevel") > 4 && PlayerPrefs.GetInt("AllLevelsDone") == 0 )
+        {
+            Boosters[1].SetActive(true);
         }
-        if (PlayerPrefs.GetInt("CurrentLevel") ==1 )
+        if (PlayerPrefs.GetInt("CurrentLevel") ==1 && PlayerPrefs.GetInt("AllLevelsDone") == 0 && CustomPlayLevel.instance.isSelectCustomLevel == false)
         {
             BoosterPanel[0].SetActive(true);
         }
-        if (PlayerPrefs.GetInt("CurrentLevel") == 2)
+        if (PlayerPrefs.GetInt("CurrentLevel") == 4 && PlayerPrefs.GetInt("AllLevelsDone") == 0 && CustomPlayLevel.instance.isSelectCustomLevel == false)
         {
             BoosterPanel[1].SetActive(true);
         }
@@ -72,6 +74,7 @@ public class LevelManager : MonoBehaviour
     {
       
         WonPAnel.SetActive(true);
+        winpanel_coinsAMount.text = PlayerPrefs.GetInt("Coins").ToString();
         SoundsManager.instance.PlayLevelWinSound(SoundsManager.instance.AS);
         GameManager.gm.IncreaseCoins(35);
         if (CustomPlayLevel.instance.isSelectCustomLevel != true)
