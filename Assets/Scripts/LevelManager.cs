@@ -35,18 +35,18 @@ public class LevelManager : MonoBehaviour
                 item.SetActive(false);
             }
         }
-        if (PlayerPrefs.GetInt("CurrentLevel") == 3)
+        if (PlayerPrefs.GetInt("CurrentLevel") >= 3)
         {
             foreach (var item in Boosters)
             {
                 item.SetActive(true);
             }
         }
-        if (PlayerPrefs.GetInt("CurrentLevel") >=1 )
+        if (PlayerPrefs.GetInt("CurrentLevel") ==1 )
         {
             BoosterPanel[0].SetActive(true);
         }
-        if (PlayerPrefs.GetInt("CurrentLevel") >= 2)
+        if (PlayerPrefs.GetInt("CurrentLevel") == 2)
         {
             BoosterPanel[1].SetActive(true);
         }
