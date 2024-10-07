@@ -12,14 +12,20 @@ public class Tutorials : MonoBehaviour
     public List<GameObject> Hand;
     public static Tutorials t_instance;
     public int CurrentIndex = 0;
+
+    public int CurrentHAndIndex = 0;
     private void Awake()
     {
         t_instance = this;
     }
     private void Start()
     {
-        StartCoroutine(nameof(DelayTutorial));
 
+
+        if (PlayerPrefs.GetInt("CurrentLevel") == 0)
+        {
+            StartCoroutine(nameof(DelayTutorial));
+        }
        
        
        
@@ -35,20 +41,28 @@ public class Tutorials : MonoBehaviour
                 item.enabled = false;
 
             }
-            foreach (GameObject item in Hand)
-            {
-                item.SetActive(false);
-
-            }
+           
             foreach (MeshCollider item in screwholder)
             {
                 item.enabled = false;
             }
             Screws[CurrentIndex].enabled = true;
             screwholder[CurrentIndex].enabled = true;
+            Hand[CurrentHAndIndex].SetActive(true);
 
-            Hand[CurrentIndex].SetActive(true);
+        }
+    }
+    public void HandActive()
+    {
+        if (CurrentHAndIndex < Hand.Count - 1)
+        {
+            CurrentHAndIndex++;
+            foreach (GameObject item in Hand)
+            {
+                item.SetActive(false);
 
+            }
+            Hand[CurrentHAndIndex].SetActive(true);
         }
     }
     public void EnableColliders()
@@ -70,11 +84,7 @@ public class Tutorials : MonoBehaviour
                 item.enabled = false;
                
             }
-            foreach (GameObject item in Hand)
-            {
-                item.SetActive(false);
-
-            }
+          
             foreach (MeshCollider item in screwholder)
             {
                 item.enabled = false;
@@ -82,7 +92,7 @@ public class Tutorials : MonoBehaviour
             Screws[CurrentIndex].enabled = true;
             screwholder[CurrentIndex].enabled = true;
 
-            Hand[CurrentIndex].SetActive(true);
+          
         }
         
     }

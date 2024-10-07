@@ -20,6 +20,7 @@ public class MainMenuManager : MonoBehaviour
     public Text Coinsmenu;
     public Text levelcoins;
     public GameObject SoundImg,Haptics,bg;
+    public GameObject SettingPanel;
     private void Awake()
     {
         if (Instance == null)
@@ -31,13 +32,20 @@ public class MainMenuManager : MonoBehaviour
         }
 
     }
-    
+    public void SettingExit() 
+    {
+        SettingPanel.transform.DOLocalMoveX(1194, .5f);
+    }
+    public void Setting()
+    {
+        SettingPanel.transform.DOLocalMoveX(0, .5f);
+    }
     private void Start()
     {
         
         checkSoundPanelSetting();
 
-        levelScrollerObj.transform.DOMoveY(4950 - ( 400 *  PlayerPrefs.GetInt("CurrentLevel") ), 1);
+        levelScrollerObj.transform.DOLocalMoveY(levelScrollerObj.transform.localPosition.y - ( 400 *  PlayerPrefs.GetInt("CurrentLevel") ), 1);
         Coinsmenu.text = PlayerPrefs.GetInt("Coins").ToString();
         if (CustomPlayLevel.instance.isSelectCustomLevel == true)
         {
@@ -130,11 +138,14 @@ public class MainMenuManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("bg", 1);
             bg.SetActive(true);
+            SoundsManager.instance.bg.gameObject.SetActive(false);
+           
         }
         else
         {
             PlayerPrefs.SetInt("bg", 0);
             bg.SetActive(false);
+            SoundsManager.instance.bg.gameObject.SetActive(true);
         }
     }
 

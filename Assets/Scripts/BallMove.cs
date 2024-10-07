@@ -340,7 +340,12 @@ public class BallMove : MonoBehaviour
 
                 {
 
+                    if (PlayerPrefs.GetInt("CurrentLevel") == 0)
+                    {
+                        hit.collider.gameObject.GetComponent<SphereCollider>().enabled = false;
+                        Tutorials.t_instance.HandActive();
 
+                    }
 
                     if (hit.collider.gameObject.GetComponent<Ball>().ispickable == true)
                     {
@@ -399,6 +404,7 @@ public class BallMove : MonoBehaviour
                     if (PlayerPrefs.GetInt("CurrentLevel") == 0)
                     {
                         Tutorials.t_instance.MoveNextHand();
+                        Tutorials.t_instance.HandActive();
                     }
                     if ((int)SelectedScrew.GetComponent<Ball>().nutscolor == (int)hit.collider.gameObject.GetComponent<BallPlaced>().nutsplacedcolor)
                     {
@@ -447,13 +453,13 @@ public class BallMove : MonoBehaviour
                     {
                        //  SelectedScrew.transform.DOMoveY(SelectedScrew.transform.position.y - Y_Axis, .2f).SetEase(Ease.InOutBounce);
                        // SelectedScrew.GetComponent<Ball>().ispickable = true;
-                        SelectedScrew = null;
+                       // SelectedScrew = null;
                     }
                 }
                 else
                 {
 
-                    SelectedScrew = null;
+                   // SelectedScrew = null;
 
                     MMVibrationManager.Haptic(HapticTypes.Failure, false, true, this);
 

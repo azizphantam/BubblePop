@@ -23,16 +23,49 @@ public class LevelManager : MonoBehaviour
     public GameObject HandTutorialsFirst;
     public Text winpanel_coinsAMount;
 
+    public GameObject ScrollerImage;
+    int currentscrollerindex;
+    public List<int> RewardAmounts;
+    public Button rewardbtn;
+    bool isclimaedwoncoins = true;
+    int coins;
+    public void MoveSCroller()
+    {
+        if (currentscrollerindex < 4)
+        {
+            currentscrollerindex++;
+        }
+        else
+        {
+            currentscrollerindex = 0;
+        }
 
+       
+       
+    }
+    public void ClaimedReward()
+    {
+        SoundsManager.instance.PlayButtonClipSound(SoundsManager.instance.AS);
+        Debug.Log("reward "+ RewardAmounts[currentscrollerindex]);
+        ScrollerImage.GetComponent<DOTweenAnimation>().DOPause();
+        AdsManager.Instance.ShowRewardAd(WatchRewardAd);
+        CancelInvoke("MoveSCroller");
 
+        coins = RewardAmounts[currentscrollerindex];
+    }
+    public void WatchRewardAd(string status)
+    {
+       
+        isclimaedwoncoins = false;
+        GameManager.gm.IncreaseCoins(coins);
+        winpanel_coinsAMount.text = PlayerPrefs.GetInt("Coins").ToString();
+        rewardbtn.interactable = false;
 
-
-
-
+    }
     private void Start()
     {
         wrongballs.text = "0 "+WrongsBalls.ToString();
-      
+        
         if (levelManagerInstance == null)
         {
             levelManagerInstance = this;
@@ -97,10 +130,15 @@ public class LevelManager : MonoBehaviour
       
         WonPAnel.SetActive(true);
         winpanel_coinsAMount.text = PlayerPrefs.GetInt("Coins").ToString();
-       
+        InvokeRepeating(nameof(MoveSCroller), .5f, .5f);
         SoundsManager.instance.PlayLevelWinSound(SoundsManager.instance.AS);
-        GameManager.gm.IncreaseCoins(35);
-        winpanel_coinsAMount.text = PlayerPrefs.GetInt("Coins").ToString();
+        if (isclimaedwoncoins)
+        {
+            GameManager.gm.IncreaseCoins(35);
+            winpanel_coinsAMount.text = PlayerPrefs.GetInt("Coins").ToString();
+        }
+       
+       
         if (CustomPlayLevel.instance.isSelectCustomLevel != true)
         {
             PlayerPrefs.SetInt("CurrentLevel", PlayerPrefs.GetInt("CurrentLevel") + 1);
