@@ -265,6 +265,7 @@ public class BallMove : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && GameManager.gm.IsClickAble) // Left mouse click
         {
+
             SelectObject();
             if (SelectedScrew != null)
             {
@@ -444,8 +445,8 @@ public class BallMove : MonoBehaviour
                     }
                     else
                     {
-                        SelectedScrew.transform.DOMoveY(SelectedScrew.transform.position.y - Y_Axis, .2f).SetEase(Ease.InOutBounce);
-                        SelectedScrew.GetComponent<Ball>().ispickable = true;
+                       //  SelectedScrew.transform.DOMoveY(SelectedScrew.transform.position.y - Y_Axis, .2f).SetEase(Ease.InOutBounce);
+                       // SelectedScrew.GetComponent<Ball>().ispickable = true;
                         SelectedScrew = null;
                     }
                 }

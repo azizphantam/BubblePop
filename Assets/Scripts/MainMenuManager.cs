@@ -36,7 +36,8 @@ public class MainMenuManager : MonoBehaviour
     {
         
         checkSoundPanelSetting();
-        levelScrollerObj.transform.DOMoveY(levelScrollerObj.transform.position.y - ( 400 *  PlayerPrefs.GetInt("CurrentLevel") ), 1);
+
+        levelScrollerObj.transform.DOMoveY(4950 - ( 400 *  PlayerPrefs.GetInt("CurrentLevel") ), 1);
         Coinsmenu.text = PlayerPrefs.GetInt("Coins").ToString();
         if (CustomPlayLevel.instance.isSelectCustomLevel == true)
         {

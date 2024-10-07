@@ -54,11 +54,15 @@ public class LevelManager : MonoBehaviour
         }
         if (PlayerPrefs.GetInt("CurrentLevel") ==1 && PlayerPrefs.GetInt("AllLevelsDone") == 0 && CustomPlayLevel.instance.isSelectCustomLevel == false)
         {
+            GameManager.gm.IsClickAble = false;
             BoosterPanel[0].SetActive(true);
+            PlayerPrefs.SetInt("Swap", 1);
         }
         if (PlayerPrefs.GetInt("CurrentLevel") == 4 && PlayerPrefs.GetInt("AllLevelsDone") == 0 && CustomPlayLevel.instance.isSelectCustomLevel == false)
         {
+            GameManager.gm.IsClickAble = false;
             BoosterPanel[1].SetActive(true);
+            PlayerPrefs.SetInt("Hint", 1);
         }
     }
 

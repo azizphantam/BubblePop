@@ -387,6 +387,7 @@ public class AdsManager : MonoBehaviour
         foreach (var adsProvider in _adsProviders.Where(adsProvider => adsProvider.CheckRewardIsAvailable()))
         {
             adsProvider.ShowRewardedAd(onComplete, onSkipped, onFailed);
+
             return;
         }
         

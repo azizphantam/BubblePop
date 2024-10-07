@@ -114,12 +114,16 @@ public class GameManager : MonoBehaviour
         Invoke(nameof(SceneLoading), 1.4f);
 
     }
+    public void CallSkipLevel()
+    {
+        AdsManager.Instance.ShowRewardAd(SKipLevel);
+    }
     public void SceneLoading()
     {
 
         SceneManager.LoadScene(2);
     }
-    public void SKipLevel()
+    public void SKipLevel(string status)
     {
         LevelManager.levelManagerInstance.LoadingPanel.SetActive(true);
         // StopCoroutine(LevelManager.levelManagerInstance.timerCoroutine);
@@ -266,6 +270,10 @@ public class GameManager : MonoBehaviour
 
     public void CallBoostSwapping()
     {
+        if(IsClickAble==false)
+        {
+            IsClickAble = true;
+        }
         if (PlayerPrefs.GetInt("Swap") == 0)
         {
             AdsManager.Instance.ShowRewardAd(OnAdCompleteSwap);
@@ -285,6 +293,10 @@ public class GameManager : MonoBehaviour
 
     public void CallHintsBoost()
     {
+        if (IsClickAble == false)
+        {
+            IsClickAble = true;
+        }
         // CurrentLevel.HintNuts();
         if (PlayerPrefs.GetInt("Hint") == 0)
         {
@@ -301,8 +313,10 @@ public class GameManager : MonoBehaviour
     public void OnAdCompleteHint(string status)
     {
         IsHintTimerRunning = true;
-       
+        
     }
+
+
 
     public void PauseGame()
     {

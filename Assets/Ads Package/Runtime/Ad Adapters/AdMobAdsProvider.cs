@@ -676,6 +676,7 @@ public class AdMobAdsProvider : MonoBehaviour,IAdsProvider
             Debug.LogError("Rewarded ad failed to open full screen content with error : "
                            + error);
         };
+        LoadRewardedAD();
     }
 
     #endregion
