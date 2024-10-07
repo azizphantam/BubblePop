@@ -30,6 +30,7 @@ public class LevelManager : MonoBehaviour
     bool isclimaedwoncoins = true;
     int coins;
     public Text rewardtext;
+    public GameObject SkipLevel;
     public void MoveSCroller()
     {
         if (currentscrollerindex < 4)
@@ -77,6 +78,14 @@ public class LevelManager : MonoBehaviour
             {
                 item.SetActive(false);
             }
+        }
+        if(PlayerPrefs.GetInt("CurrentLevel") >  0 )
+        {
+            SkipLevel.SetActive(true);
+        }
+        else
+        {
+            SkipLevel.SetActive(false);
         }
         if (PlayerPrefs.GetInt("CurrentLevel") > 1 && PlayerPrefs.GetInt("AllLevelsDone") == 0 )
         {
