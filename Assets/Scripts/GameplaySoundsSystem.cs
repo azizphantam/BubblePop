@@ -98,6 +98,8 @@ public class GameplaySoundsSystem : MonoBehaviour
         {
 
             bg.SetActive(false);
+            SoundsManager.instance.bg.gameObject.SetActive(false);
+            SoundsManager.instance.bg.Play();
         }
         else
         {
