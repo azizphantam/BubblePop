@@ -475,6 +475,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1092677111326133270, guid: 14aa4ca216be7c54099869ddcd206958, type: 3}
+      propertyPath: appOpenNetworkType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1092677111326133270, guid: 14aa4ca216be7c54099869ddcd206958, type: 3}
       propertyPath: enableAdmobTestAds
       value: 1
       objectReference: {fileID: 0}
