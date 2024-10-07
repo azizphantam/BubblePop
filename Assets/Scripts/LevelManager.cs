@@ -29,6 +29,7 @@ public class LevelManager : MonoBehaviour
     public Button rewardbtn;
     bool isclimaedwoncoins = true;
     int coins;
+    public Text rewardtext;
     public void MoveSCroller()
     {
         if (currentscrollerindex < 4)
@@ -40,8 +41,8 @@ public class LevelManager : MonoBehaviour
             currentscrollerindex = 0;
         }
 
-       
-       
+
+        rewardtext.text = RewardAmounts[currentscrollerindex].ToString();
     }
     public void ClaimedReward()
     {
@@ -130,7 +131,7 @@ public class LevelManager : MonoBehaviour
       
         WonPAnel.SetActive(true);
         winpanel_coinsAMount.text = PlayerPrefs.GetInt("Coins").ToString();
-        InvokeRepeating(nameof(MoveSCroller), .5f, .5f);
+        InvokeRepeating(nameof(MoveSCroller), .2f, .2f);
         SoundsManager.instance.PlayLevelWinSound(SoundsManager.instance.AS);
         if (isclimaedwoncoins)
         {
