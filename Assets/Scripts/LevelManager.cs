@@ -60,6 +60,7 @@ public class LevelManager : MonoBehaviour
     {
        
         isclimaedwoncoins = false;
+        GameManager.gm.WonCoinsAnim.SetActive(true);
         GameManager.gm.IncreaseCoins(coins);
         winpanel_coinsAMount.text = PlayerPrefs.GetInt("Coins").ToString();
         rewardbtn.interactable = false;
@@ -121,7 +122,13 @@ public class LevelManager : MonoBehaviour
 
     public void Home()
     {
-        Time.timeScale = 1; 
+        Time.timeScale = 1;
+        if (isclimaedwoncoins)
+        {
+            GameManager.gm.IncreaseCoins(35);
+            winpanel_coinsAMount.text = PlayerPrefs.GetInt("Coins").ToString();
+            GameManager.gm.WonCoinsAnim.SetActive(true);
+        }
         LoadingPanel.SetActive(true);
         Invoke(nameof(SceneLoading),1.4f);
       
@@ -143,11 +150,7 @@ public class LevelManager : MonoBehaviour
         winpanel_coinsAMount.text = PlayerPrefs.GetInt("Coins").ToString();
         InvokeRepeating(nameof(MoveSCroller), .2f, .2f);
         SoundsManager.instance.PlayLevelWinSound(SoundsManager.instance.AS);
-        if (isclimaedwoncoins)
-        {
-            GameManager.gm.IncreaseCoins(35);
-            winpanel_coinsAMount.text = PlayerPrefs.GetInt("Coins").ToString();
-        }
+        
        
        
         if (CustomPlayLevel.instance.isSelectCustomLevel != true)

@@ -44,7 +44,11 @@ public class GameManager : MonoBehaviour
 
     public GameObject EnoughSwaps;
 
-    public bool IsClickAble = true; 
+    public bool IsClickAble = true;
+
+    public Button hintbtn;
+
+    public GameObject WonCoinsAnim;
     private void Awake()
     {
         if (gm == null)
@@ -206,8 +210,8 @@ public class GameManager : MonoBehaviour
         {
             // Once time reaches zero, you can handle what happens next (e.g., Game Over, etc.)
 
-           
-            
+
+            hintbtn.interactable = true;
             IsHintTimerRunning = false;
             HintRmainingTime = 15;
             HintBG.SetActive(false);
@@ -311,6 +315,7 @@ public class GameManager : MonoBehaviour
         {
             IsClickAble = true;
         }
+        hintbtn.interactable = false;
         // CurrentLevel.HintNuts();
         if (PlayerPrefs.GetInt("Hint") == 0)
         {
