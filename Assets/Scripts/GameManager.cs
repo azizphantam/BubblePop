@@ -247,6 +247,17 @@ public class GameManager : MonoBehaviour
         }
 
     }
+    public void ReviveVideo()
+    {
+        AdsManager.Instance.ShowRewardAd(ReviveReward);
+    }
+    public void ReviveReward(string status)
+    {
+        ClosePanel(TimeOutPanel);
+       
+        remainingTime = 60;
+        IsTimerRunning = true;
+    }
     public void IncreaseCoins(int coinamount)
     {
         PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + coinamount);
