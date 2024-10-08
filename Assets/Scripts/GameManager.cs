@@ -116,14 +116,15 @@ public class GameManager : MonoBehaviour
     }
     public void CallSkipLevel()
     {
-        AdsManager.Instance.ShowRewardAd(SKipLevel);
+       // AdsManager.Instance.ShowRewardAd(SKipLevel);
+        PhantomAds.Instance.ShowRewardedAd(SKipLevel);
     }
     public void SceneLoading()
     {
 
         SceneManager.LoadScene(2);
     }
-    public void SKipLevel(string status)
+    public void SKipLevel()
     {
         LevelManager.levelManagerInstance.LoadingPanel.SetActive(true);
         // StopCoroutine(LevelManager.levelManagerInstance.timerCoroutine);
@@ -249,9 +250,10 @@ public class GameManager : MonoBehaviour
     }
     public void ReviveVideo()
     {
-        AdsManager.Instance.ShowRewardAd(ReviveReward);
+        //AdsManager.Instance.ShowRewardAd(ReviveReward);
+        PhantomAds.Instance.ShowRewardedAd(ReviveReward);
     }
-    public void ReviveReward(string status)
+    public void ReviveReward()
     {
         ClosePanel(TimeOutPanel);
        
@@ -287,7 +289,8 @@ public class GameManager : MonoBehaviour
         }
         if (PlayerPrefs.GetInt("Swap") == 0)
         {
-            AdsManager.Instance.ShowRewardAd(OnAdCompleteSwap);
+           // AdsManager.Instance.ShowRewardAd(OnAdCompleteSwap);
+            PhantomAds.Instance.ShowRewardedAd(OnAdCompleteSwap);
         }
         else
         {
@@ -296,7 +299,7 @@ public class GameManager : MonoBehaviour
         }
         
     }
-    public void OnAdCompleteSwap(string status)
+    public void OnAdCompleteSwap()
     {
         CurrentLevel.SwapNuts();
         
@@ -311,8 +314,9 @@ public class GameManager : MonoBehaviour
         // CurrentLevel.HintNuts();
         if (PlayerPrefs.GetInt("Hint") == 0)
         {
-            
-            AdsManager.Instance.ShowRewardAd(OnAdCompleteHint);
+
+            //AdsManager.Instance.ShowRewardAd(OnAdCompleteHint);
+            PhantomAds.Instance.ShowRewardedAd(OnAdCompleteHint);
         }
         else
         {
@@ -321,7 +325,7 @@ public class GameManager : MonoBehaviour
         }
         
     }
-    public void OnAdCompleteHint(string status)
+    public void OnAdCompleteHint()
     {
         IsHintTimerRunning = true;
         

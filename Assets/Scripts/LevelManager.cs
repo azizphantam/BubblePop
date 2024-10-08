@@ -50,12 +50,13 @@ public class LevelManager : MonoBehaviour
         SoundsManager.instance.PlayButtonClipSound(SoundsManager.instance.AS);
         Debug.Log("reward "+ RewardAmounts[currentscrollerindex]);
         ScrollerImage.GetComponent<DOTweenAnimation>().DOPause();
-        AdsManager.Instance.ShowRewardAd(WatchRewardAd);
+       // AdsManager.Instance.ShowRewardAd(WatchRewardAd);
+        PhantomAds.Instance.ShowRewardedAd(WatchRewardAd);
         CancelInvoke("MoveSCroller");
 
         coins = RewardAmounts[currentscrollerindex];
     }
-    public void WatchRewardAd(string status)
+    public void WatchRewardAd()
     {
        
         isclimaedwoncoins = false;

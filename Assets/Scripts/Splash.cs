@@ -17,10 +17,10 @@ public class Splash : MonoBehaviour
             PlayerPrefs.SetInt("Hint", 1);
         }
         loadingimage.transform.DOScale(1, 1.8f);
-        Invoke(nameof(loadScene),1.7f);
+       // Invoke(nameof(loadScene),1.7f);
     }
     public void loadScene()
     {
-        SceneManager.LoadScene(1);
+      // SceneManager.LoadScene(1);
     }
 }
